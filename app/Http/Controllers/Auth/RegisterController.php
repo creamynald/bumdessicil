@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 class RegisterController extends Controller
 {
@@ -64,10 +65,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        // Create the user with the provided data
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        // Assign role from the dropdown
+        $roleName = $data['role']; // make sure 'role' is the name of the dropdown
+
+        // Check if the role exists and assign it to the user
+        if ($role = Role::findByName($roleName)) {
+            $user->assignRole($role);
+        } else {
+            // Optionally handle the case where the selected role does not exist
+            // For instance, you might want to log this issue or assign a default role
+        }
+
+        return $user;
     }
 }

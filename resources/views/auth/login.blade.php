@@ -19,12 +19,11 @@
             </div>
             <div class="row">
                 <div class="col-sm-6 d-sm-flex align-items-center push">
-                    {{-- register --}}
-                    <a href="{{ route('register') }}" class="link-fx text-muted">Belum punya akun?</a>
+                    <a href="{{ route('register') }}" class="link-fx text-muted">Belum punya akun? daftar</a>
                 </div>
                 <div class="col-sm-6 text-sm-end push">
                     <button type="submit" class="btn btn-lg btn-alt-primary fw-medium">
-                        Sign In
+                        Login
                     </button>
                 </div>
             </div>
