@@ -26,8 +26,8 @@ and we are :
 1. roles is automaticly running if u run migrate with --seed
 2. for demo purpose, u can use :
     - super admin is superadmin@bumdessicil.test
-    - admin is admin@bumdessicil.test
-    - also user is user@bumdessicil.test
+    - admin is bumdes@bumdessicil.test
+    - also user is customer@bumdessicil.test
     - and then, default password is _password_
 
 THANKS
