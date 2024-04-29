@@ -32,7 +32,7 @@ class PermissionSeeder extends Seeder
         $role1 = Role::create(['name' => 'customer']);
         $role1->givePermissionTo('rice.index');
 
-        $role2 = Role::create(['name' => 'bumdes admin']);
+        $role2 = Role::create(['name' => 'bumdes']);
         $role2->givePermissionTo('rice.index');
         $role2->givePermissionTo('rice.create');
         $role2->givePermissionTo('rice.edit');

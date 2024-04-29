@@ -5,7 +5,7 @@
     @csrf
     <div class="block block-themed block-rounded block-fx-shadow">
         <div class="block-header bg-gd-dusk">
-            <h3 class="block-title">Please Sign In</h3>
+            <h3 class="block-title">Form Login</h3>
         </div>
         <div class="block-content">
             <div class="form-floating mb-4">
@@ -19,11 +19,8 @@
             </div>
             <div class="row">
                 <div class="col-sm-6 d-sm-flex align-items-center push">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="remember" name="remember" {{
-                            old('remember') ? 'checked' : '' }}>
-                        <label class="form-check-label" for="remember">Remember Me</label>
-                    </div>
+                    {{-- register --}}
+                    <a href="{{ route('register') }}" class="link-fx text-muted">Belum punya akun?</a>
                 </div>
                 <div class="col-sm-6 text-sm-end push">
                     <button type="submit" class="btn btn-lg btn-alt-primary fw-medium">
@@ -31,15 +28,6 @@
                     </button>
                 </div>
             </div>
-        </div>
-        <div class="block-content block-content-full bg-body-light text-center d-flex justify-content-between">
-            <a class="fs-sm fw-medium link-fx text-muted me-2 mb-1 d-inline-block" href="{{ route('register') }}">
-                <i class="fa fa-plus opacity-50 me-1"></i> Create Account
-            </a>
-            <a class="fs-sm fw-medium link-fx text-muted me-2 mb-1 d-inline-block"
-                href="{{ route('password.request') }}">
-                Forgot Your Password?
-            </a>
         </div>
     </div>
 </form>
