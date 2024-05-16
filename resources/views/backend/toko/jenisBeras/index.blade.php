@@ -119,7 +119,8 @@
 @endpush
 
 @push('js')
-    <script src="{{ asset('assets/js/codebase.app.min.js') }}"></script>
+    <!-- jQuery (required for DataTables plugin and BS Notify plugin) -->
+    <script src="{{ asset('assets/js/lib/jquery.min.js') }}"></script>
 
     <!-- Page JS Plugins -->
     <script src="{{ asset('assets/js/plugins/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
@@ -132,7 +133,7 @@
                 var messageText = '{{ session()->has('success') ? session('success') : session('error') }}';
 
                 Codebase.helpers('jq-notify', {
-                    align: 'center',
+                    align: 'right',
                     from: 'top',
                     type: messageType,
                     icon: messageType == 'success' ? 'fa fa-check me-5' : 'fa fa-exclamation-circle me-5',
@@ -141,8 +142,6 @@
             @endif
         });
     </script>
-    <!-- jQuery (required for DataTables plugin) -->
-    <script src="{{ asset('assets/js/lib/jquery.min.js') }}"></script>
 
     <!-- Page JS Plugins -->
     <script src="{{ asset('assets/js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -159,4 +158,5 @@
 
     <!-- Page JS Code -->
     <script src="{{ asset('assets/js/pages/be_tables_datatables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/codebase.app.min.js') }}"></script>
 @endpush
