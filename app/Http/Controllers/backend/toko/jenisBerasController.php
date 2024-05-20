@@ -5,7 +5,7 @@ namespace App\Http\Controllers\backend\toko;
 use App\Http\Controllers\Controller;
 use App\Models\jenisBeras;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class jenisBerasController extends Controller
 {
@@ -18,35 +18,60 @@ class jenisBerasController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input
         $validatedData = $request->validate([
             'nama' => 'required',
             'urutan' => 'required|numeric',
         ]);
 
-        // Mencoba menyimpan data
         try {
-            // Cek apakah ada nama dan urutan yang sama
             $existingJenisBeras = jenisBeras::where('nama', $validatedData['nama'])
                 ->orWhere('urutan', $validatedData['urutan'])
                 ->first();
 
             if ($existingJenisBeras) {
-                // Redirect kembali dengan pesan error
-                return redirect()->back()->with('error', 'Nama atau urutan sudah digunakan');
+                Alert::error('Error', 'Data sudah ada');
+                return redirect()->back();
             }
 
-            // Buat jenis beras baru
             jenisBeras::create([
                 'nama' => $validatedData['nama'],
                 'urutan' => $validatedData['urutan'],
             ]);
 
-            // Redirect kembali dengan pesan sukses
-            return redirect()->back()->with('success', 'Data berhasil ditambahkan');
+            Alert::success('Success', 'Data berhasil disimpan');
+            return redirect()->back();
         } catch (\Exception $e) {
-            // Tangani kesalahan dengan memberikan pesan umum
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data');
+            Alert::error('Error', 'Terjadi kesalahan saat menyimpan data');
+            return redirect()->back();
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'urutan' => 'required|integer',
+        ]);
+
+        $jenisBeras = JenisBeras::findOrFail($id);
+        $jenisBeras->update([
+            'nama' => $request->nama,
+            'urutan' => $request->urutan,
+        ]);
+
+        Alert::success('Success', 'Data updated successfully');
+        return redirect()->route('jenis-beras.index');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $jenisBeras = jenisBeras::findOrFail($id);
+            $jenisBeras->delete();
+
+            return response()->json(['success' => 'Data berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Terjadi kesalahan saat menghapus data'], 500);
         }
     }
 }

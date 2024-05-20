@@ -31,18 +31,20 @@
                     </thead>
                     <tbody>
                         @foreach ($jenisBeras as $index => $row)
-                            <tr>
+                            <tr data-id="{{ $row->id }}">
                                 <td class="text-center">{{ $index + 1 }}</td>
                                 <td class="fw-semibold">{{ $row->nama }}</td>
                                 <td class="d-none d-sm-table-cell text-center">
                                     <span class="badge bg-success">{{ $row->urutan }}</span>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('jenis-beras.edit', $row) }}" type="button"
-                                        class="btn btn-sm btn-secondary" title="Edit">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#edit-modal"
+                                        data-id="{{ $row->id }}" data-nama="{{ $row->nama }}"
+                                        data-urutan="{{ $row->urutan }}" class="btn btn-sm btn-secondary edit-btn"
+                                        title="Edit">
                                         <i class="fa fa-pen"></i>
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-danger" title="Delete">
+                                    <button type="button" class="btn btn-sm btn-danger delete-btn" title="Delete">
                                         <i class="fa fa-trash-can"></i>
                                     </button>
                                 </td>
@@ -56,58 +58,8 @@
     </div>
     <!-- END Page Content -->
 
-    <!-- large Modal -->
-    <div class="modal" id="modal-large" tabindex="-1" role="dialog" aria-labelledby="modal-large" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="block block-rounded shadow-none mb-0">
-                    <div class="block-header block-header-default">
-                        <h3 class="block-title">Input Data @yield('subTitle')</h3>
-                        <div class="block-options">
-                            <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
-                                <i class="fa fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="block-content fs-sm">
-                        <form action="{{ route('jenis-beras.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="row mb-4">
-                                <div class="col-6">
-                                    <label class="form-label" for="nama">Jenis Beras</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="fa fa-tag"></i>
-                                        </span>
-                                        <input type="text" class="form-control" id="nama" name="nama"
-                                            placeholder="Jenis Beras">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <label class="form-label" for="urutan">Urutan</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">
-                                            <i class="fa fa-sort"></i>
-                                        </span>
-                                        <input type="number" class="form-control text-center" id="urutan" name="urutan"
-                                            placeholder="Urutan">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-4 float-end">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-paper-plane opacity-50 me-1"></i> Kirim
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- END large Modal -->
-
-
+    @include('backend.toko.jenisBeras.modals.create')
+    @include('backend.toko.jenisBeras.modals.edit')
 @endsection
 
 @push('css')
@@ -120,28 +72,88 @@
 
 @push('js')
     <!-- jQuery (required for DataTables plugin and BS Notify plugin) -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="{{ asset('assets/js/lib/jquery.min.js') }}"></script>
 
-    <!-- Page JS Plugins -->
-    <script src="{{ asset('assets/js/plugins/bootstrap-notify/bootstrap-notify.min.js') }}"></script>
-
-    <!-- Page JS Helpers (BS Notify Plugin) -->
+    <!-- CSRF Token for AJAX -->
     <script>
-        $(document).ready(function() {
-            @if (session()->has('success') || session()->has('error'))
-                var messageType = '{{ session()->has('success') ? 'success' : 'error' }}';
-                var messageText = '{{ session()->has('success') ? session('success') : session('error') }}';
-
-                Codebase.helpers('jq-notify', {
-                    align: 'right',
-                    from: 'top',
-                    type: messageType,
-                    icon: messageType == 'success' ? 'fa fa-check me-5' : 'fa fa-exclamation-circle me-5',
-                    message: messageText
-                });
-            @endif
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
     </script>
+    <link rel="stylesheet"
+        href="{{ asset('assets/js/plugins/datatables-responsive-bs5/css/responsive.bootstrap5.min.css') }}">
+    @include('sweetalert::alert')
+    <script>
+        $(document).ready(function() {
+            // Handle delete button click event
+            $('.delete-btn').on('click', function() {
+                var id = $(this).closest('tr').data('id');
+
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: 'Data yang dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Tidak, Batal!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '{{ url('admin/toko/jenis-beras') }}/' + id,
+                            type: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire(
+                                        'Terhapus!',
+                                        response.success,
+                                        'success'
+                                    ).then(function() {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        'Data gagal dihapus.',
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function(response) {
+                                Swal.fire(
+                                    'Error!',
+                                    response.responseJSON.error ||
+                                    'Data gagal dihapus.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Handle the edit button click event
+            $('.edit-btn').on('click', function() {
+                var id = $(this).data('id');
+                var nama = $(this).data('nama');
+                var urutan = $(this).data('urutan');
+
+                $('#edit-nama').val(nama);
+                $('#edit-urutan').val(urutan);
+
+                // Update the form action
+                $('#edit-form').attr('action', '{{ url('admin/toko/jenis-beras') }}/' + id);
+            });
+        });
+    </script>
+
+
 
     <!-- Page JS Plugins -->
     <script src="{{ asset('assets/js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
