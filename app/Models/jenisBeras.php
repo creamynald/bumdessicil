@@ -11,4 +11,9 @@ class jenisBeras extends Model
 
     protected $table = 'jenis_beras';
     protected $fillable = ['nama', 'urutan'];
+
+    public function beras()
+    {
+        return $this->hasMany(Beras::class, 'jenis_beras_id');
+    }
 }
