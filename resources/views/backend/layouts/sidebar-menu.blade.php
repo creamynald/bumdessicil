@@ -1,25 +1,3 @@
-@can('rice.index')
-    <li class="nav-main-heading">Menu Toko</li>
-    <li class="nav-main-item">
-        <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false"
-            href="#">
-            <i class="nav-main-link-icon far fa-note-sticky"></i>
-            <span class="nav-main-link-name">Post</span>
-        </a>
-        <ul class="nav-main-submenu">
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="javascript:void(0)">
-                    <span class="nav-main-link-name">Link #1</span>
-                </a>
-            </li>
-            <li class="nav-main-item">
-                <a class="nav-main-link" href="javascript:void(0)">
-                    <span class="nav-main-link-name">Link #2</span>
-                </a>
-            </li>
-        </ul>
-    </li>
-@endcan
 @can('bumdes.index')
     <li class="nav-main-heading">Menu Toko</li>
     <li class="nav-main-item @if (request()->segment(2) == 'toko') open @endif">
@@ -47,7 +25,14 @@
             </li>
         </ul>
     </li>
+    <li class="nav-main-item">
+        <a class="nav-main-link nav-main-link-menu" href="{{ route('orders.index') }}">
+            <i class="nav-main-link-icon fas fa-tasks"></i>
+            <span class="nav-main-link-name">Rekap Penjualan</span>
+        </a>
+    </li>
 @endcan
+
 @can('permission')
     <li class="nav-main-heading">Administrator</li>
     <li class="nav-main-item {{ request()->segment(2) == 'role-and-permission' ? 'open' : '' }}">
