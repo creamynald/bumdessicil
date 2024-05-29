@@ -61,22 +61,28 @@ class PermissionSeeder extends Seeder
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
         // create demo users
-        $user = \App\Models\User::factory()->create([
-            'name' => 'User demo for customer role',
-            'email' => 'customer@bumdessicil.test',
+        $userCustomer = \App\Models\User::factory()->create([
+            'name' => 'Customer 1',
+            'email' => 'customer1@bumdessicil.test',
         ]);
-        $user->assignRole($role1);
+        $userCustomer->assignRole($role1);
 
-        $user = \App\Models\User::factory()->create([
-            'name' => 'User demo for bumdes admin role',
-            'email' => 'bumdes@bumdessicil.test',
+        $userBumdes1 = \App\Models\User::factory()->create([
+            'name' => 'Bumdes 1',
+            'email' => 'bumdes1@bumdessicil.test',
         ]);
-        $user->assignRole($role2);
+        $userBumdes1->assignRole($role2);
 
-        $user = \App\Models\User::factory()->create([
+        $userBumdes2 = \App\Models\User::factory()->create([
+            'name' => 'Bumdes 2',
+            'email' => 'bumdes2@bumdessicil.test',
+        ]);
+        $userBumdes2->assignRole($role2);
+
+        $userAdmin = \App\Models\User::factory()->create([
             'name' => 'Super Admin',
             'email' => 'superadmin@bumdessicil.test',
         ]);
-        $user->assignRole($role3);
+        $userAdmin->assignRole($role3);
     }
 }

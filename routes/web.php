@@ -2,11 +2,10 @@
 
 use App\Http\Controllers\backend\permissions\{assignController, roleController, permissionController, userController};
 use App\Http\Controllers\backend\toko\{jenisBerasController, berasController, ordersController};
+use App\Http\Controllers\frontend\homeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('frontend.layouts.app');
-});
+Route::get('/', [homeController::class, 'index']);
 
 Route::middleware('has.role')
     ->prefix('admin')
@@ -23,12 +22,11 @@ Route::middleware('has.role')
                 Route::resource('assign/user', userController::class);
             });
 
-        Route::prefix('toko')
-            ->group(function () {
-                Route::resource('jenis-beras', jenisBerasController::class);
-                Route::resource('beras', berasController::class);
-                Route::resource('orders', ordersController::class);
-            });
+        Route::prefix('toko')->group(function () {
+            Route::resource('jenis-beras', jenisBerasController::class);
+            Route::resource('beras', berasController::class);
+            Route::resource('orders', ordersController::class);
+        });
     });
 
 Auth::routes();
