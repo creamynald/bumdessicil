@@ -1,5 +1,5 @@
 <!-- large Modal -->
-<div class="modal" id="modal-large" tabindex="-1" role="dialog" aria-labelledby="modal-large" aria-hidden="true">
+<div class="modal" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="modal-large" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="block block-rounded shadow-none mb-0">
@@ -14,6 +14,7 @@
                 <div class="block-content fs-sm">
                     <form action="{{ route('beras.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="mb-4">
                             <label class="form-label" for="jenis_beras_id">Jenis Beras</label>
                             <select class="form-select" id="jenis_beras_id" name="jenis_beras_id" size="1"

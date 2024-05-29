@@ -5,8 +5,11 @@ namespace App\Http\Controllers\backend\toko;
 use App\Http\Controllers\Controller;
 use App\Models\Beras;
 use App\Models\jenisBeras;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Validator;
 
 class berasController extends Controller
 {
@@ -24,19 +27,35 @@ class berasController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        // Melakukan validasi
+        $validator = Validator::make($request->all(), [
             'jenis_beras_id' => 'required',
-            'harga' => 'required',
-            'berat' => 'required',
+            'harga' => 'required|numeric',
+            'berat' => 'required|numeric',
             'deskripsi' => 'nullable',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $fotoPath = null;
-        if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('fotoBeras', 'public');
+        if ($validator->fails()) {
+            Alert::error('Gagal', 'Data beras gagal ditambahkan');
+            return redirect()->route('beras.index');
         }
 
+        $fotoPath = null;
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $username = Auth::user()->name; // Mengambil nama pengguna yang sedang login
+            $username = str_replace(' ', '-', $username); // Mengganti spasi dengan tanda -
+            $jenisBeras = $request->input('jenis_beras_id'); // Mengambil jenis beras dari input
+            $date = Carbon::now()->format('Ymd'); // Mengambil tanggal sekarang dalam format Ymd
+
+            // Membuat nama file sesuai format [username]-[jenis beras]-[tanggal input].[ext]
+            $filename = $username . '-' . $jenisBeras . '-' . $date . '.' . $file->getClientOriginalExtension();
+            $fotoPath = 'fotoBeras/' . $filename;
+            $file->move(public_path('fotoBeras'), $filename);
+        }
+
+        // Menyimpan data ke database
         Beras::create([
             'jenis_beras_id' => $request->jenis_beras_id,
             'harga' => $request->harga,
@@ -46,7 +65,61 @@ class berasController extends Controller
             'user_id' => auth()->user()->id,
         ]);
 
-        Alert::success('Berhasil', 'Data Berhasil Ditambahkan');
+        Alert::success('Berhasil', 'Data beras berhasil ditambahkan');
         return redirect()->route('beras.index');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'jenis_beras_id' => 'required',
+            'harga' => 'required|numeric',
+            'berat' => 'required|numeric',
+            'deskripsi' => 'nullable',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Gagal', 'Data beras gagal diubah');
+            return redirect()->route('beras.index');
+        }
+
+        $beras = Beras::findOrFail($id);
+
+        $fotoPath = $beras->foto;
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $username = Auth::user()->name;
+            $username = str_replace(' ', '-', $username);
+            $jenisBeras = $request->input('jenis_beras_id');
+            $date = Carbon::now()->format('Ymd');
+
+            $filename = $username . '-' . $jenisBeras . '-' . $date . '.' . $file->getClientOriginalExtension();
+            $fotoPath = 'fotoBeras/' . $filename;
+            $file->move(public_path('fotoBeras'), $filename);
+        }
+
+        $beras->update([
+            'jenis_beras_id' => $request->jenis_beras_id,
+            'harga' => $request->harga,
+            'berat' => $request->berat,
+            'deskripsi' => $request->deskripsi,
+            'foto' => $fotoPath,
+        ]);
+
+        Alert::success('Berhasil', 'Data beras berhasil diubah');
+        return redirect()->route('beras.index');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $beras = Beras::findOrFail($id);
+            $beras->delete();
+
+            return response()->json(['success' => 'Data beras berhasil dihapus'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Terjadi kesalahan saat menghapus data beras'], 500);
+        }
     }
 }
