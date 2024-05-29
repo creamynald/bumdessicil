@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\backend\permissions\{assignController, roleController, permissionController, userController};
-use App\Http\Controllers\backend\toko\{jenisBerasController, berasController};
+use App\Http\Controllers\backend\toko\{jenisBerasController, berasController, ordersController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,6 +27,7 @@ Route::middleware('has.role')
             ->group(function () {
                 Route::resource('jenis-beras', jenisBerasController::class);
                 Route::resource('beras', berasController::class);
+                Route::resource('orders', ordersController::class);
             });
     });
 
