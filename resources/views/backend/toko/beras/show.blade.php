@@ -129,7 +129,7 @@
                                 <div class="col-6 col-sm-2">
                                     <div class="form-check form-block">
                                         <input type="radio" class="form-check-input" id="checkout-transfer"
-                                            name="checkout-payment" checked>
+                                            name="checkout-payment">
                                         <label class="form-check-label bg-body-light" for="checkout-transfer">
                                             <span class="d-block p-1 ratio ratio-21x9">
                                                 <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none"
@@ -158,9 +158,10 @@
                                 <div class="mb-4">
                                     <div class="form-floating">
                                         {{-- file input --}}
-                                        <input type="file" class="form-control" id="payment-receipt" name="payment-receipt"
-                                            accept="image/*">
-                                        <label class="form-label fw-medium" for="payment-receipt">Upload Bukti Transfer</label> 
+                                        <input type="file" class="form-control" id="payment-receipt"
+                                            name="payment-receipt" accept="image/*">
+                                        <label class="form-label fw-medium" for="payment-receipt">Upload Bukti
+                                            Transfer</label>
                                     </div>
                                 </div>
                             </div>
@@ -188,25 +189,22 @@
                                             <div class="fs-sm text">{{ $getBeras->deskripsi }}</div>
                                             <div class="fs-sm text-muted">Toko : {{ $getBeras->user->name }}</div>
                                         </td>
-                                        <td class="pe-0 fw-medium text-end">{{ formatRupiah($getBeras->harga) }}/kg</td>
+                                        <td id="harga-beras" class="pe-0 fw-medium text-end">
+                                            {{ formatRupiah($getBeras->harga) }}/kg
+                                        </td>
                                     </tr>
                                 </tbody>
                                 <tbody>
                                     <tr>
-                                        <td class="ps-0 fw-medium">Jumlah</td>
-                                        <td class="pe-0 fw-medium text-end">2</td>
+                                        <td class="ps-0 fw-medium">Jumlah Beras (Kg)</td>
+                                        <td class="pe-0 fw-medium text-end">
+                                            <input type="number" class="form-control" id="berat" name="berat"
+                                                value="1" min="1" max="100">
+                                        </td>
                                     </tr>
-                                    {{-- <tr>
-                                        <td class="ps-0 fw-medium">Subtotal</td>
-                                        <td class="pe-0 fw-medium text-end">{{ formatRupiah($getBeras->harga) }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ps-0 fw-medium">Ongkos Kirim</td>
-                                        <td class="pe-0 fw-medium text-end">Rp. 5.000</td>
-                                    </tr> --}}
                                     <tr>
                                         <td class="ps-0 fw-medium">Total</td>
-                                        <td class="pe-0 fw-bold text-end">...</td>
+                                        <td id="total-harga" class="pe-0 fw-bold text-end">Rp 0</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -233,26 +231,46 @@
     </style>
 @endpush
 
-{{-- @push('js')
+@push('js')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const checkoutTransfer = document.getElementById('checkout-transfer');
-            const checkoutCod = document.getElementById('checkout-cod');
-            const paymentForm = document.getElementById('payment-form');
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Bagian untuk menghitung total harga
+            const hargaElement = document.getElementById('harga-beras');
+            const jumlahInput = document.getElementById('berat');
+            const totalElement = document.getElementById('total-harga');
 
-            function togglePaymentForm() {
+            function updateTotal() {
+                const harga = parseFloat(hargaElement.innerText.replace(/[^0-9,-]+/g, "").replace(',', '.'));
+                const jumlah = parseInt(jumlahInput.value);
+                const total = harga * jumlah;
+                totalElement.innerText = `Rp. ${total.toLocaleString('id-ID')}`;
+            }
+
+            // Initial calculation
+            updateTotal();
+
+            // Event listener for input change
+            jumlahInput.addEventListener('input', updateTotal);
+
+            // Bagian untuk toggle visibility input payment receipt
+            const checkoutCOD = document.getElementById('checkout-cod');
+            const checkoutTransfer = document.getElementById('checkout-transfer');
+            const paymentReceipt = document.getElementById('payment-receipt').closest('.mb-4');
+
+            function togglePaymentReceipt() {
                 if (checkoutTransfer.checked) {
-                    paymentForm.classList.remove('hidden');
+                    paymentReceipt.style.display = 'block';
                 } else {
-                    paymentForm.classList.add('hidden');
+                    paymentReceipt.style.display = 'none';
                 }
             }
 
-            checkoutTransfer.addEventListener('change', togglePaymentForm);
-            checkoutCod.addEventListener('change', togglePaymentForm);
+            // Initial state, hide payment receipt since default is COD
+            togglePaymentReceipt();
 
-            // Initialize the form visibility
-            togglePaymentForm();
+            // Event listeners for radio buttons
+            checkoutCOD.addEventListener('change', togglePaymentReceipt);
+            checkoutTransfer.addEventListener('change', togglePaymentReceipt);
         });
     </script>
-@endpush --}}
+@endpush
