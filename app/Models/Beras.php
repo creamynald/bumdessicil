@@ -24,4 +24,9 @@ class Beras extends Model
     {
         return $this->belongsTo(jenisBeras::class, 'jenis_beras_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

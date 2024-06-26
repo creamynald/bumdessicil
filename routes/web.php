@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [homeController::class, 'index']);
 
-Route::middleware('has.role')
+Route::middleware('auth')
     ->prefix('admin')
     ->group(function () {
         Route::get('dashboard', function () {
@@ -26,6 +26,10 @@ Route::middleware('has.role')
             Route::resource('jenis-beras', jenisBerasController::class);
             Route::resource('beras', berasController::class);
             Route::resource('orders', ordersController::class);
+        });
+        Route::prefix('order')->group(function(){
+            Route::get('confirm/{id}', [ordersController::class, 'confirm'])->name('order.confirm');
+            Route::get('cancel/{id}', [ordersController::class, 'cancel'])->name('order.cancel');
         });
     });
 

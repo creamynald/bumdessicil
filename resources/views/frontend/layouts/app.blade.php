@@ -244,12 +244,21 @@
                                 <span class="nav-main-link-name">Page</span>
                             </a>
                         </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="{{ route('login') }}">
-                                <i class="nav-main-link-icon fa fa-sign-in"></i>
-                                <span class="nav-main-link-name">Login</span>
-                            </a>
-                        </li>
+                        @auth
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="{{ route('dashboard') }}">
+                                    <i class="nav-main-link-icon fa fa-user"></i>
+                                    <span class="nav-main-link-name">Dashboard</span>
+                                </a>
+                            </li>
+                        @else
+                            <li class="nav-main-item">
+                                <a class="nav-main-link" href="{{ route('login') }}">
+                                    <i class="nav-main-link-icon fa fa-sign-in"></i>
+                                    <span class="nav-main-link-name">Login</span>
+                                </a>
+                            </li>
+                        @endauth
                     </ul>
                     <!-- END Header Navigation -->
 

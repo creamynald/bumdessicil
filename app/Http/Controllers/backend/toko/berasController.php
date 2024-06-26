@@ -122,4 +122,15 @@ class berasController extends Controller
             return response()->json(['error' => 'Terjadi kesalahan saat menghapus data beras'], 500);
         }
     }
+
+    public function show($id)
+    {
+        $getBeras = Beras::findOrFail($id);
+        $getUserLogin = Auth::user();
+        return view('backend.toko.beras.show', [
+            'getBeras' => $getBeras,
+            'getUserLogin' => $getUserLogin,
+        ]);
+        // return response()->json($beras);
+    }
 }

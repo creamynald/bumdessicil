@@ -19,6 +19,9 @@ return new class extends Migration
             $table->integer('berat');
             $table->integer('total_harga');
             $table->string('alamat');
+            $table->string('kota');
+            $table->string('kodepos');
+            $table->string('no_hp');
             $table->enum('status', ['pending', 'processing', 'completed', 'cancelled'])->default('pending');
             $table->timestamps();
         });

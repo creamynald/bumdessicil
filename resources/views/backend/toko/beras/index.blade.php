@@ -22,7 +22,7 @@
                     <!-- Beras -->
                     <div class="block block-rounded">
                         <div class="block-content p-0 overflow-hidden">
-                            <a class="img-link" href="be_pages_real_estate_listing.html">
+                            <a class="img-link" href="#">
                                 @if ($row->foto)
                                     <img class="img-fluid rounded-top" src="{{ asset($row->foto) }}"
                                         alt="{{ $row->jenisBeras->nama }}">
@@ -35,7 +35,7 @@
                         <div class="block-content border-bottom">
                             <h4 class="fs-5 mb-2">
                                 <a class="text-dark"
-                                    href="be_pages_real_estate_listing.html">{{ $row->jenisBeras->nama }}</a>
+                                    href="#">{{ $row->jenisBeras->nama }}</a>
                             </h4>
                             <h5 class="fs-1 fw-light mb-1 text-primary">Rp. {{ $row->harga }}/Kg</h5>
                         </div>
