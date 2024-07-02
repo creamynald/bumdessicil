@@ -33,6 +33,22 @@
     </li>
 @endcan
 
+@can('order.index')
+    <li class="nav-main-heading">Menu Customer</li>
+    <li class="nav-main-item">
+        <a class="nav-main-link nav-main-link-menu" href="{{ route('cari-beras') }}">
+            <i class="nav-main-link-icon fas fa-bowl-rice"></i>
+            <span class="nav-main-link-name">Cari Beras</span>
+        </a>
+    </li>
+    <li class="nav-main-item">
+        <a class="nav-main-link nav-main-link-menu" href="{{ route('orders.index') }}">
+            <i class="nav-main-link-icon fas fa-tasks"></i>
+            <span class="nav-main-link-name">Rekap Pembelian</span>
+        </a>
+    </li>
+@endcan
+
 @can('permission')
     <li class="nav-main-heading">Administrator</li>
     <li class="nav-main-item {{ request()->segment(2) == 'role-and-permission' ? 'open' : '' }}">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\backend\permissions\{assignController, roleController, permissionController, userController};
 use App\Http\Controllers\backend\toko\{jenisBerasController, berasController, ordersController};
+use App\Http\Controllers\backend\customer\{berasController as customerBerasController};
 use App\Http\Controllers\frontend\homeController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +28,15 @@ Route::middleware('auth')
             Route::resource('beras', berasController::class);
             Route::resource('orders', ordersController::class);
         });
-        Route::prefix('order')->group(function(){
-            Route::get('confirm/{id}', [ordersController::class, 'confirm'])->name('order.confirm');
-            Route::get('cancel/{id}', [ordersController::class, 'cancel'])->name('order.cancel');
+    });
+
+Route::middleware('auth')
+    ->prefix('customer')
+    ->group(function () {
+        Route::prefix('order')->group(function () {
+            Route::get('beras', [customerBerasController::class, 'cari'])->name('cari-beras');
+            
+            Route::get('checkout', [ordersController::class, 'checkout'])->name('checkout');
         });
     });
 
