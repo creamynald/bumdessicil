@@ -10,7 +10,7 @@
                         <!-- Beras -->
                         <div class="block block-rounded">
                             <div class="block-content p-0 overflow-hidden">
-                                <a class="img-link" href="{{ route('beras.show', $row->id) }}">
+                                <a class="img-link" href="#">
                                     @if ($row->foto)
                                         <img class="img-fluid rounded-top" src="{{ asset($row->foto) }}" alt="{{ $row->jenisBeras->nama }}">
                                     @else
