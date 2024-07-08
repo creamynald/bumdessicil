@@ -15,7 +15,7 @@
         <!-- END Header -->
 
         <!-- Checkout -->
-        <form action="{{ route('beli-beras') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('beli-beras', ['id' => $getBeras->id]) }}" method="POST">
             @csrf
             <div class="row">
                 <!-- Order Info -->
@@ -89,8 +89,8 @@
                             <div class="row g-3">
                                 <div class="col-6 col-sm-2">
                                     <div class="form-check form-block">
-                                        <input type="radio" class="form-check-input" id="checkout-cod"
-                                            name="checkout-payment" value="cod" checked>
+                                        <input type="radio" class="form-check-input" id="checkout-cod" name="pembayaran"
+                                            value="cod" checked>
                                         <label class="form-check-label bg-body-light" for="checkout-cod">
                                             <span class="d-block p-1 ratio ratio-21x9">
                                                 <svg fill="#000000" width="800px" height="800px" viewBox="0 0 32 32"
@@ -123,7 +123,7 @@
                                 <div class="col-6 col-sm-2">
                                     <div class="form-check form-block">
                                         <input type="radio" class="form-check-input" id="checkout-transfer"
-                                            name="checkout-payment" value="transfer">
+                                            name="pembayaran" value="transfer">
                                         <label class="form-check-label bg-body-light" for="checkout-transfer">
                                             <span class="d-block p-1 ratio ratio-21x9">
                                                 <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none"

@@ -43,7 +43,9 @@ Route::middleware('auth')
         Route::prefix('cari')->group(function () {
             Route::get('beras', [customerBerasController::class, 'cari'])->name('cari-beras');
             Route::get('beras/{id}', [customerBerasController::class, 'lihat'])->name('lihat-beras');
-            Route::post('beras', [customerBerasController::class, 'store'])->name('beli-beras');
+            // Route::post('beras', [customerBerasController::class, 'store'])->name('beli-beras');
+            Route::post('/beras/{id}/store', [customerBerasController::class, 'store'])->name('beli-beras');
+            Route::get('orders', [ordersController::class, 'index'])->name('customer.orders');
         });
     });
 

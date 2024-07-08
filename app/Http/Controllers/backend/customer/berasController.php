@@ -25,36 +25,38 @@ class berasController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
+        // Validasi input
         $request->validate([
             'alamat' => 'required',
             'no_hp' => 'required',
-            'pembayaran' => 'required',
-            'berat' => 'required',
-            'total_harga' => 'required',
-            'status' => 'processing'
+            'berat' => 'required|numeric|min:1',
         ]);
 
-        Orders::create([
-            'alamat' => $request->alamat,
-            'no_hp' => $request->no_hp,
-            'pembayaran' => $request->pembayaran,
-            'beras_id' => $request->beras_id,
-            'user_id' => auth()->user()->id,
-            'berat' => $request->berat,
-            'total_harga' => $request->total_harga,
-            'bukti_pembayaran' => $request->bukti_pembayaran,
-            'status' => 'processing'
-        ]);
+        // Cari objek Beras berdasarkan $id
+        $beras = Beras::find($id);
+        $beratBeras = Beras::find($id)->berat;
 
-        // return dd
-        return redirect()->route('beras.index')
-            ->with('success', 'Beras created successfully.');
+        // Hitung total harga
+        $totalHarga = $request->berat * $beratBeras;
 
-        // Orders::create($request->all());
+        // Buat objek Order baru
+        $order = new Orders();
+        $order->beras_id = $beras->id;
+        $order->user_id = auth()->user()->id;
+        $order->alamat = $request->alamat;
+        $order->no_hp = $request->no_hp;
+        $order->berat = $request->berat;
+        $order->total_harga = $totalHarga;
 
-        // return redirect()->route('beras.index')
-        //     ->with('success', 'Beras created successfully.');
+        // Simpan pesanan
+        $order->save();
+
+        // pengurangan stok beras
+        $beras->berat = $beras->berat - $request->berat;
+        $beras->save();
+
+        return to_route('cari-beras')->with('success', 'Pesanan berhasil ditambahkan');
     }
 }
