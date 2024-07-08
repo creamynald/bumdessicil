@@ -6,9 +6,7 @@ use App\Http\Controllers\backend\customer\{berasController as customerBerasContr
 use App\Http\Controllers\frontend\homeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return to_route('login');
-});
+Route::get('/', [homeController::class, 'index']);
 
 Route::middleware('auth')
     ->prefix('admin')
