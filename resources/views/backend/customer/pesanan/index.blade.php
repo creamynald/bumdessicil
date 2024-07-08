@@ -25,8 +25,8 @@
                         <tr>
                             <th class="text-center">No</th>
                             <th>Jenis Beras</th>
-                            <th>Harga</th>
                             <th>Toko</th>
+                            <th>Harga</th>
                             <th class="d-none d-sm-table-cell">Status</th>
                             <th class="text-center" style="width: 15%;">Aksi</th>
                         </tr>
@@ -38,10 +38,10 @@
                                 <td class="fw-semibold">{{ $row->beras->jenisBeras->nama }}
                                     <span class="badge bg-success">{{ $row->berat }} Kg</span>
                                 </td>
-                                <td class="fw-semibold">{{ formatRupiah($row->beras->harga) }}
-                                </td>
                                 <td class="fw-semibold"><i class="fa fa-tag" aria-hidden="true"></i>
                                     {{ $row->beras->user->name }}</td>
+                                <td class="fw-semibold">{{ formatRupiah($row->beras->harga) }}
+                                </td>
                                 <td class="d-none d-sm-table-cell text-center">
                                     @if ($row->status == 'pending')
                                         <span class="badge bg-warning">
