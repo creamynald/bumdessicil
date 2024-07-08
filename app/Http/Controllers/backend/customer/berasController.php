@@ -57,6 +57,6 @@ class berasController extends Controller
         $beras->berat = $beras->berat - $request->berat;
         $beras->save();
 
-        return to_route('cari-beras')->with('success', 'Pesanan berhasil ditambahkan');
+        return to_route('customer.orders')->with('success', 'Pesanan berhasil ditambahkan');
     }
 }

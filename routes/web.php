@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\backend\permissions\{assignController, roleController, permissionController, userController};
 use App\Http\Controllers\backend\toko\{jenisBerasController, berasController, ordersController};
-use App\Http\Controllers\backend\customer\{berasController as customerBerasController};
+use App\Http\Controllers\backend\customer\{berasController as customerBerasController, orderController as customerOrderController};
 use App\Http\Controllers\frontend\homeController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,7 +45,9 @@ Route::middleware('auth')
             Route::get('beras/{id}', [customerBerasController::class, 'lihat'])->name('lihat-beras');
             // Route::post('beras', [customerBerasController::class, 'store'])->name('beli-beras');
             Route::post('/beras/{id}/store', [customerBerasController::class, 'store'])->name('beli-beras');
-            Route::get('orders', [ordersController::class, 'index'])->name('customer.orders');
+
+            Route::get('pesanan', [customerOrderController::class, 'index'])->name('customer.orders');
+            Route::get('pesanan/{id}', [customerOrderController::class, 'detail'])->name('customer.orders.detail');
         });
     });
 

@@ -42,7 +42,7 @@
         </a>
     </li>
     <li class="nav-main-item">
-        <a class="nav-main-link nav-main-link-menu" href="{{ route('orders.index') }}">
+        <a class="nav-main-link nav-main-link-menu" href="{{ route('customer.orders') }}">
             <i class="nav-main-link-icon fas fa-tasks"></i>
             <span class="nav-main-link-name">Rekap Pembelian</span>
         </a>
