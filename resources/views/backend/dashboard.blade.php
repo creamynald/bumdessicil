@@ -3,7 +3,7 @@
 <div class="content">
     <div class="block block-rounded">
         <div class="block-header block-header-default">
-            <h3 class="block-title">Blank <small>Get Started</small></h3>
+            <h3 class="block-title">BUMDES <small>Siak Kecil </small></h3>
             <div class="block-options">
                 <button type="button" class="btn-block-option" data-toggle="block-option"
                     data-action="fullscreen_toggle"></button>
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="block-content">
-            <p>Create your own awesome project!</p>
+            <p>Selamat datang di BUMDES Siak Kecil!, selamat berbelanja</p>
         </div>
     </div>
 </div>

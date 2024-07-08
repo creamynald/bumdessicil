@@ -27,6 +27,7 @@ Route::middleware('auth')
             Route::resource('jenis-beras', jenisBerasController::class);
             Route::resource('beras', berasController::class);
             Route::resource('orders', ordersController::class);
+
         });
     });
 
