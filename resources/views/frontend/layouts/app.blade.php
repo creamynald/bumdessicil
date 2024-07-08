@@ -187,7 +187,7 @@
                                 <span class="nav-main-link-name">Home</span>
                             </a>
                         </li>
-                        <li class="nav-main-heading">Heading</li>
+                        {{-- <li class="nav-main-heading">Heading</li>
                         <li class="nav-main-item">
                             <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
                                 aria-expanded="false" href="#">
@@ -243,7 +243,7 @@
                                 <i class="nav-main-link-icon fa fa-wrench"></i>
                                 <span class="nav-main-link-name">Page</span>
                             </a>
-                        </li>
+                        </li> --}}
                         @auth
                             <li class="nav-main-item">
                                 <a class="nav-main-link" href="{{ route('dashboard') }}">
@@ -316,18 +316,18 @@
 
                     <!-- Open Search Section -->
                     <!-- Layout API, functionality initialized in Codebase() -> uiApiLayout() -->
-                    <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="layout"
+                    {{-- <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="layout"
                         data-action="header_search_on">
                         <i class="fa fa-fw fa-search"></i>
-                    </button>
+                    </button> --}}
                     <!-- END Open Search Section -->
 
                     <!-- Toggle Sidebar -->
                     <!-- Layout API, functionality initialized in Codebase() -> uiApiLayout() -->
-                    <button type="button" class="btn btn-sm btn-alt-secondary d-lg-none" data-toggle="layout"
+                    {{-- <button type="button" class="btn btn-sm btn-alt-secondary d-lg-none" data-toggle="layout"
                         data-action="sidebar_toggle">
                         <i class="fa fa-fw fa-bars"></i>
-                    </button>
+                    </button> --}}
                     <!-- END Toggle Sidebar -->
                 </div>
                 <!-- END Right Section -->
@@ -378,17 +378,17 @@
                     <div class="hero-inner">
                         <div class="content content-full text-center">
                             <h1 class="display-3 fw-bold mb-2">
-                                Hero Title
+                                Badan Usaha Milik Desa (BUMD)
                             </h1>
                             <h2 class="fw-medium text-muted mb-5">
-                                Hero Subtitle
+                                Siak Kecil
                             </h2>
-                            <a class="btn btn-lg btn-primary fw-semibold me-1 mb-2" href="javascript:void(0)">
+                            {{-- <a class="btn btn-lg btn-primary fw-semibold me-1 mb-2" href="javascript:void(0)">
                                 <i class="fa fa-rocket opacity-50 me-1"></i> Call to Action
                             </a>
                             <a class="btn btn-lg btn-alt-primary fw-semibold mb-2" href="javascript:void(0)">
                                 <i class="fa fa-rocket opacity-50 me-1"></i> Call to Action
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </div>
@@ -400,25 +400,25 @@
             <!-- END Content #1 -->
 
             <!-- Content #2 -->
-            <div class="bg-body-extra-light">
+            {{-- <div class="bg-body-extra-light">
                 <div class="content content-full">
                     <div class="py-5 text-center">
                         <h3 class="fw-bold mb-2">Heading 2</h3>
                         <h4 class="fw-normal text-muted mb-0">Content..</h4>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- END Content #2 -->
 
             <!-- Content #3 -->
-            <div class="bg-body-light">
+            {{-- <div class="bg-body-light">
                 <div class="content content-full">
                     <div class="py-5 text-center">
                         <h3 class="fw-bold mb-2">Heading 3</h3>
                         <h4 class="fw-normal text-muted mb-0">Content..</h4>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- END Content #3 -->
         </main>
         <!-- END Main Container -->

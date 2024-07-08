@@ -10,11 +10,14 @@
                         <!-- Beras -->
                         <div class="block block-rounded">
                             <div class="block-content p-0 overflow-hidden">
-                                <a class="img-link" href="#">
+                                <a class="img-link" href="{{ route('lihat-beras', $row->id) }}">
                                     @if ($row->foto)
-                                        <img class="img-fluid rounded-top" src="{{ asset($row->foto) }}" alt="{{ $row->jenisBeras->nama }}">
+                                        <img class="img-fluid rounded-top" src="{{ asset($row->foto) }}"
+                                            alt="{{ $row->jenisBeras->nama }}">
                                     @else
-                                        <img class="img-fluid rounded-top" src="{{ asset('assets/media/photos/no_image.svg') }}" alt="Foto tidak tersedia">
+                                        <img class="img-fluid rounded-top"
+                                            src="{{ asset('assets/media/photos/no_image.svg') }}"
+                                            alt="Foto tidak tersedia">
                                     @endif
                                 </a>
                             </div>
@@ -42,24 +45,22 @@
                             </div>
                             <div class="block-content block-content-full">
                                 <div class="row g-sm">
-                                    <div class="col-7">
-                                        <button class="btn btn-sm btn-primary w-100 edit-btn" data-bs-toggle="modal" data-bs-target="#edit-modal"
-                                            data-id="{{ $row->id }}" data-jenis-beras-id="{{ $row->jenis_beras_id }}" data-harga="{{ $row->harga }}"
-                                            data-berat="{{ $row->berat }}" data-deskripsi="{{ $row->deskripsi }}" data-foto="{{ $row->foto }}">
-                                            <i class="fa fa-edit"></i>
+                                    <div class="col">
+                                        <a href="{{ route('lihat-beras', $row->id) }}" class="btn btn-sm btn-primary w-100">
+                                            <i class="fa fa-fw fa-shopping-cart opacity-50 me-1"></i>
                                             Beli
-                                        </button>
+                                        </a>
                                     </div>
-                                    <div class="col-5">
+                                    {{-- <div class="col-5">
                                         <button class="btn btn-sm btn-alt-warning w-100 delete-btn" data-id="{{ $row->id }}">
                                             <i class="fa fa-shopping-cart"></i>
                                             Keranjang
                                         </button>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- END Beras -->
                     </div>
                 @endforeach
