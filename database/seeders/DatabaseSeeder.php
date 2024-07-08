@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use Database\Seeders\dataDemo\berasSeeder;
 use Database\Seeders\dataDemo\jenisBerasSeeder;
 use Illuminate\Database\Seeder;
 
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PermissionSeeder::class,
             jenisBerasSeeder::class,
+            berasSeeder::class,
         ]);
     }
 }
