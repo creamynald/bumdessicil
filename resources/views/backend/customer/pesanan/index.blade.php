@@ -43,12 +43,31 @@
                                 <td class="fw-semibold"><i class="fa fa-tag" aria-hidden="true"></i>
                                     {{ $row->beras->user->name }}</td>
                                 <td class="d-none d-sm-table-cell text-center">
-                                    <span class="badge bg-success">{{ $row->status }}</span>
+                                    @if ($row->status == 'pending')
+                                        <span class="badge bg-warning">
+                                            <i class="fa fa-clock" aria-hidden="true"></i>
+                                            {{ $row->status }}
+                                        </span>
+                                    @elseif($row->status == 'processing')
+                                        <span class="badge bg-info">
+                                            <i class="fa fa-spinner" aria-hidden="true"></i>
+                                            {{ $row->status }}
+                                        </span>
+                                    @elseif($row->status == 'completed')
+                                        <span class="badge bg-success">
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                            {{ $row->status }}
+                                        </span>
+                                    @else($row->status == 'cancelled')
+                                        <span class="badge bg-danger">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                            {{ $row->status }}
+                                        </span>
+                                    @endif
                                 </td>
                                 <td class="text-center">
-                                    {{-- detail --}}
-                                    <a href="{{ route('customer.orders.detail', $row->id) }}" class="btn btn-sm btn-primary"
-                                        data-bs-toggle="tooltip" title="Detail">
+                                    <a href="{{ route('customer.orders.detail', $row->id) }}"
+                                        class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Detail">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                 </td>
