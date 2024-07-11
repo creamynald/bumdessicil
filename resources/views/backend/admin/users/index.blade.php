@@ -4,6 +4,7 @@
 @section('subTitle', 'Users')
 
 @section('content')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Page Content -->
     <div class="content">
         <h2 class="content-heading">@yield('title')</h2>
@@ -34,7 +35,7 @@
                             <tr data-id="{{ $row->id }}">
                                 <td class="text-center">{{ $index + 1 }}</td>
                                 <td>
-                                    <span class="fw-semibold">{{ $row->name }} {{ url("admin/".$url) }}</span>
+                                    <span class="fw-semibold">{{ $row->name }} {{ url('admin/' . $url) }}</span>
                                 </td>
                                 <td class="d-none d-sm-table-cell text-center">
                                     <span class="badge bg-success">{{ $row->email }}</span>
@@ -96,6 +97,7 @@
             // Handle delete button click event
             $('.delete-btn').on('click', function() {
                 var id = $(this).closest('tr').data('id');
+                var deleteUrl = '{{ url('admin') }}/' + '{{ $url }}' + '/' + id;
 
                 Swal.fire({
                     title: 'Apakah Anda Yakin?',
@@ -108,7 +110,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: '{{ url("admin/".$url) }}/' + id,
+                            url: deleteUrl,
                             type: 'DELETE',
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -153,7 +155,7 @@
                 $('#edit-email').val(email);
 
                 // Update the form action
-                $('#edit-form').attr('action', '{{ url('admin/'.$url) }}/' + id);
+                $('#edit-form').attr('action', '{{ url('admin/' . $url) }}/' + id);
             });
         });
     </script>

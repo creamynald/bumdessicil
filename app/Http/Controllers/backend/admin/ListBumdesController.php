@@ -11,18 +11,19 @@ class ListBumdesController extends Controller
     public function index()
     {
         // get user where role is bumdes from spatie
-        
-        if (request()->segment(2) == 'list-bumdes') { // Move the if statement outside of the array
-            return view('backend.admin.users.index',[
+
+        if (request()->segment(2) == 'list-bumdes') {
+            // Move the if statement outside of the array
+            return view('backend.admin.users.index', [
                 'users' => User::role('bumdes')->get(),
                 'route' => route('list-bumdes.index'),
-                'url' => 'list-bumdes'
+                'url' => 'list-bumdes',
             ]);
         } else {
-            return view('backend.admin.users.index',[
+            return view('backend.admin.users.index', [
                 'users' => User::role('customer')->get(),
                 'route' => route('list-customer.index'),
-                'url' => 'list-customer'
+                'url' => 'list-customer',
             ]);
         }
     }
@@ -30,12 +31,12 @@ class ListBumdesController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        
+
         validator([
             'name' => 'min:3|max:50',
             'email' => 'required|email',
         ]);
-        
+
         $user->update($request->all());
 
         return redirect()->back()->with('success', 'Data berhasil diupdate');
@@ -47,7 +48,7 @@ class ListBumdesController extends Controller
             'name' => 'required|min:3|max:50',
             'email' => 'required|email',
             'password' => 'required|min:3',
-            'role' => 'required'
+            'role' => 'required',
         ]);
 
         $user = User::create($validated);
@@ -58,10 +59,14 @@ class ListBumdesController extends Controller
 
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();
-        $user->removeRole($user->roles->first()->name);
+        try {
+            $user = User::findOrFail($id); // Use findOrFail to throw an exception if the user is not found
+            $user->removeRole($user->roles->first()->name); // Remove role first
+            $user->delete(); // Then delete the user
 
-        return redirect()->back()->with('success', 'Data berhasil dihapus');
+            return response()->json(['success' => 'Data berhasil dihapus']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Data gagal dihapus'], 500);
+        }
     }
 }
