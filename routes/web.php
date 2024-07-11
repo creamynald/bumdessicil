@@ -3,6 +3,7 @@
 use App\Http\Controllers\backend\permissions\{assignController, roleController, permissionController, userController};
 use App\Http\Controllers\backend\toko\{jenisBerasController, berasController, ordersController};
 use App\Http\Controllers\backend\customer\{berasController as customerBerasController, orderController as customerOrderController};
+use App\Http\Controllers\backend\admin\{ListBumdesController, ListCustomerController};
 use App\Http\Controllers\frontend\homeController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,9 +27,10 @@ Route::middleware('auth')
         Route::prefix('toko')->group(function () {
             Route::resource('jenis-beras', jenisBerasController::class);
             Route::resource('beras', berasController::class);
-            Route::resource('orders', ordersController::class);
-
         });
+        Route::resource('orders', ordersController::class);
+        Route::resource('list-bumdes', ListBumdesController::class);
+        Route::resource('list-customer', ListCustomerController::class);
     });
 
 Route::middleware('auth')

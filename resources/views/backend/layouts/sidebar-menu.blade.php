@@ -18,11 +18,11 @@
                     <span class="nav-main-link-name">Beras</span>
                 </a>
             </li>
-            <li class="nav-main-item">
+            {{-- <li class="nav-main-item">
                 <a class="nav-main-link" href="javascript:void(0)">
                     <span class="nav-main-link-name">Pesanan</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </li>
     <li class="nav-main-item">
@@ -51,6 +51,18 @@
 
 @can('permission')
     <li class="nav-main-heading">Administrator</li>
+    <li class="nav-main-item">
+        <a class="nav-main-link nav-main-link-menu" href="{{ route('list-bumdes.index') }}">
+            <i class="nav-main-link-icon fas fa-home"></i>
+            <span class="nav-main-link-name">Rekap Bumdes</span>
+        </a>
+    </li>
+    <li class="nav-main-item">
+        <a class="nav-main-link nav-main-link-menu" href="{{ route('list-customer.index') }}">
+            <i class="nav-main-link-icon fas fa-users"></i>
+            <span class="nav-main-link-name">Rekap Customer</span>
+        </a>
+    </li>
     <li class="nav-main-item {{ request()->segment(2) == 'role-and-permission' ? 'open' : '' }}">
         <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false"
             href="#">
