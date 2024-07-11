@@ -264,7 +264,7 @@
 
                     <!-- Color Themes (used just for demonstration) -->
                     <!-- Themes functionality initialized in Codebase() -> uiHandleTheme() -->
-                    <div class="dropdown d-inline-block">
+                    {{-- <div class="dropdown d-inline-block">
                         <button type="button" class="btn btn-sm btn-alt-secondary" id="page-header-themes-dropdown"
                             data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true"
                             aria-expanded="false">
@@ -311,7 +311,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- END Color Themes -->
 
                     <!-- Open Search Section -->
