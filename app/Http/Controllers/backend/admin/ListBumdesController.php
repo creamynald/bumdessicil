@@ -16,14 +16,12 @@ class ListBumdesController extends Controller
             return view('backend.admin.users.index',[
                 'users' => User::role('bumdes')->get(),
                 'route' => route('list-bumdes.index'),
-                'route_store' => route('list-bumdes.store'),
                 'url' => 'list-bumdes'
             ]);
         } else {
             return view('backend.admin.users.index',[
                 'users' => User::role('customer')->get(),
                 'route' => route('list-customer.index'),
-                'route_store' => route('list-customer.store'),
                 'url' => 'list-customer'
             ]);
         }
@@ -33,12 +31,12 @@ class ListBumdesController extends Controller
     {
         $user = User::find($id);
         
-        $validated = $request->validate([
+        validator([
             'name' => 'min:3|max:50',
-            'email' => 'email',
+            'email' => 'required|email',
         ]);
         
-        $user->update($validated);
+        $user->update($request->all());
 
         return redirect()->back()->with('success', 'Data berhasil diupdate');
     }

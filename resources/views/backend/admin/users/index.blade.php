@@ -34,7 +34,7 @@
                             <tr data-id="{{ $row->id }}">
                                 <td class="text-center">{{ $index + 1 }}</td>
                                 <td>
-                                    <span class="fw-semibold">{{ $row->name }} {{ "admin/".$url }} {{ $route_store }}</span>
+                                    <span class="fw-semibold">{{ $row->name }} {{ url("admin/".$url) }}</span>
                                 </td>
                                 <td class="d-none d-sm-table-cell text-center">
                                     <span class="badge bg-success">{{ $row->email }}</span>
@@ -153,7 +153,7 @@
                 $('#edit-email').val(email);
 
                 // Update the form action
-                $('#edit-form').attr('action', '{{ url('admin/list-bumdes') }}/' + id);
+                $('#edit-form').attr('action', '{{ url('admin/'.$url) }}/' + id);
             });
         });
     </script>

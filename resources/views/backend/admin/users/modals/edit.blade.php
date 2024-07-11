@@ -35,6 +35,7 @@
                                     <input type="email" class="form-control text-center" id="edit-email"
                                         name="email" placeholder="Email">
                                 </div>
+                                <span class="text-danger text-small">*wajib diisi</span>
                             </div>
                         </div>
                         <div class="mb-4 float-end">

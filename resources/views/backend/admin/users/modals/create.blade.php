@@ -12,7 +12,7 @@
                     </div>
                 </div>
                 <div class="block-content fs-sm">
-                    <form action={{ route('list-bumdes.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('list-bumdes.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-4">
                             <div class="col-6">
