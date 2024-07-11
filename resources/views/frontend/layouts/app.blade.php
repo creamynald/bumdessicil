@@ -502,7 +502,7 @@
                             href="https://1.envato.market/ydb" target="_blank">pixelcave</a> --}}
                     </div>
                     <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-start">
-                        <a class="fw-semibold" href="https://1.envato.market/95j" target="_blank">Codebase 5.5</a>
+                        <a class="fw-semibold" href="https://1.envato.market/95j" target="_blank">{{ env('APP_NAME') }}</a>
                         &copy; <span data-toggle="year-copy"></span>
                     </div>
                 </div>
