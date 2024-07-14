@@ -57,6 +57,7 @@ class Kernel extends HttpKernel
     protected $middlewareAliases = [
         // custom
         'has.role' => HasRoleMiddleware::class,
+        'auth' => \App\Http\Middleware\Authenticate::class,
 
         // spatie
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,

@@ -70,6 +70,11 @@
                                         class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Detail">
                                         <i class="fa fa-eye"></i>
                                     </a>
+                                    {{-- message icon --}}
+                                    <a href="{{ route('customer.orders.chat', $row->id) }}"
+                                        class="btn btn-sm btn-success" data-bs-toggle="tooltip" title="Chat">
+                                        <i class="fa fa-comments"></i> 
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

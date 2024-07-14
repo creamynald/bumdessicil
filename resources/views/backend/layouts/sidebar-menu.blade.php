@@ -1,5 +1,6 @@
 @can('bumdes.index')
-    <li class="nav-main-heading">Menu Toko</li>
+    <li class="nav-main-heading">
+        Menu Toko</li>
     <li class="nav-main-item @if (request()->segment(2) == 'toko') open @endif">
         <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="false"
             href="#">
@@ -14,7 +15,7 @@
                 </a>
             </li>
             <li class="nav-main-item ">
-                <a class="nav-main-link @if (request()->segment(3) == 'beras') active @endif " href="{{ route('beras.index') }}">
+                <a class="nav-main-link @if (request()->segment(3) == 'beras') active @elseif (request()->segment(3) == 'orders') '' @endif " href="{{ route('beras.index') }}">
                     <span class="nav-main-link-name">Beras</span>
                 </a>
             </li>
