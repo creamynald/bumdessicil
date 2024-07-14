@@ -76,13 +76,13 @@
                                         class="btn btn-sm btn-success" data-bs-toggle="tooltip" title="Chat">
                                         <i class="fa fa-comments"></i>
                                     </a>
-                                    {{-- @if ($row->status == 'pending')
-                                        <button class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Batalkan"
-                                            onclick="cancelOrder('{{ route('orders.update', $row->id) }}')"
-                                            data-id="{{ $row->id }}">
+                                    @if ($row->status == 'pending')
+                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="tooltip"
+                                            title="Batalkan Pesanan"
+                                            onclick="cancelOrder('{{ url('admin/toko/pemesanan/' . $row->id) }}')">
                                             <i class="fa fa-times"></i>
                                         </button>
-                                    @endif --}}
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -123,90 +123,24 @@
         href="{{ asset('assets/js/plugins/datatables-responsive-bs5/css/responsive.bootstrap5.min.css') }}">
     @include('sweetalert::alert')
     <script>
-        $(document).ready(function() {
-
-            // Handle delete button click event
-            $('.delete-btn').on('click', function() {
-                var id = $(this).closest('tr').data('id');
-
-                Swal.fire({
-                    title: 'Apakah Anda Yakin?',
-                    text: 'Data yang dihapus tidak dapat dikembalikan!',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Ya, Hapus!',
-                    cancelButtonText: 'Tidak, Batal!',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: '{{ url('admin/toko/jenis-beras') }}/' + id,
-                            type: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            success: function(response) {
-                                if (response.success) {
-                                    Swal.fire(
-                                        'Terhapus!',
-                                        response.success,
-                                        'success'
-                                    ).then(function() {
-                                        location.reload();
-                                    });
-                                } else {
-                                    Swal.fire(
-                                        'Error!',
-                                        'Data gagal dihapus.',
-                                        'error'
-                                    );
-                                }
-                            },
-                            error: function(response) {
-                                Swal.fire(
-                                    'Error!',
-                                    response.responseJSON.error ||
-                                    'Data gagal dihapus.',
-                                    'error'
-                                );
-                            }
-                        });
-                    }
-                });
+        function cancelOrder(url) {
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: 'Pemesanan ini akan dibatalkan!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Batalkan!',
+                cancelButtonText: 'Tidak, Batal!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Set the form action to the URL passed in
+                    $('#cancel-form').attr('action', url);
+                    // Submit the form
+                    $('#cancel-form').submit();
+                }
             });
-
-            // Handle the edit button click event
-            $('.edit-btn').on('click', function() {
-                var id = $(this).data('id');
-                var nama = $(this).data('nama');
-                var urutan = $(this).data('urutan');
-
-                $('#edit-nama').val(nama);
-                $('#edit-urutan').val(urutan);
-
-                // Update the form action
-                $('#edit-form').attr('action', '{{ url('admin/toko/jenis-beras') }}/' + id);
-            });
-
-            function cancelOrder(url) {
-                Swal.fire({
-                    title: 'Apakah Anda Yakin?',
-                    text: 'Pemesanan ini akan dibatalkan!',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Ya, Batalkan!',
-                    cancelButtonText: 'Tidak, Batal!',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Set the form action to the URL passed in
-                        $('#cancel-form').attr('action', url);
-                        // Submit the form
-                        $('#cancel-form').submit();
-                    }
-                });
-            }
-        });
+        }
     </script>
 
 

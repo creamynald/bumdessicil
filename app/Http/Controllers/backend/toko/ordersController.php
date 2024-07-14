@@ -10,7 +10,7 @@ class ordersController extends Controller
 {
     public function index()
     {
-        return view('backend.toko.pemesanan.index',[
+        return view('backend.toko.pemesanan.index', [
             'pemesanan' => Orders::where('toko_id', auth()->user()->id)->get(),
         ]);
     }
@@ -33,5 +33,18 @@ class ordersController extends Controller
         ]);
 
         return redirect()->route('orders.index')->with('success', 'Status pesanan berhasil diubah');
+    }
+
+    public function cancel($id)
+    {
+        // Find the order by its ID
+        $order = Orders::findOrFail($id);
+
+        // Perform the cancellation logic, e.g., updating the order status
+        $order->status = 'cancelled'; // Assuming you have a status field
+        $order->save();
+
+        // Optionally, you can add flash messages or other response handling here
+        return redirect()->back()->with('success', 'Order has been cancelled.');
     }
 }

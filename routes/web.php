@@ -28,6 +28,7 @@ Route::middleware('auth')
             Route::resource('jenis-beras', jenisBerasController::class);
             Route::resource('beras', berasController::class);
             Route::resource('orders', ordersController::class);
+            Route::put('pemesanan/{id}', [ordersController::class, 'cancel'])->name('admin.toko.pemesanan.cancel');
         });
         Route::resource('list-bumdes', RekapController::class);
         Route::resource('list-customer', RekapController::class);
