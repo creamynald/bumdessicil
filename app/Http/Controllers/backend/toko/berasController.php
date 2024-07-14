@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend\toko;
 use App\Http\Controllers\Controller;
 use App\Models\Beras;
 use App\Models\jenisBeras;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,7 @@ class berasController extends Controller
             'berat' => 'required|numeric',
             'deskripsi' => 'nullable',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'no_hp' => 'numeric',
         ]);
 
         if ($validator->fails()) {
@@ -64,6 +66,12 @@ class berasController extends Controller
             'foto' => $fotoPath,
             'user_id' => auth()->user()->id,
         ]);
+
+        if($request->no_hp != null) {
+            User::where('id', auth()->user()->id)->update([
+                'no_hp' => $request->no_hp,
+            ]);
+        }
 
         Alert::success('Berhasil', 'Data beras berhasil ditambahkan');
         return redirect()->route('beras.index');

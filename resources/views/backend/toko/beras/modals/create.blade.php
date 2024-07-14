@@ -60,6 +60,16 @@
                             <label class="form-label" for="foto">Foto</label>
                             <input class="form-control" type="file" name="foto" id="foto">
                         </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="no_hp">Nomor Hp/Whatsapp</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="fa fa-phone"></i>
+                                </span>
+                                <input type="text" class="form-control text-center" id="no_hp" name="no_hp"
+                                    placeholder="08XXXXXXXXXX">
+                            </div>
+                        </div>
                         <div class="d-flex justify-content-end mb-4">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa fa-paper-plane opacity-50 me-1"></i> Kirim

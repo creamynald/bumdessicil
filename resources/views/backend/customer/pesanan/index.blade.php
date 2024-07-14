@@ -71,9 +71,9 @@
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     {{-- message icon --}}
-                                    <a href="{{ route('customer.orders.chat', $row->id) }}"
+                                    <a href="https://wa.me/{{ $row->user->no_hp }}?text=Hi,%20saya%20telah%20order%20di%20toko%20kamu,%20mohon%20konfirmasi%20dan%20diproses%20ya,%20terimakasih"
                                         class="btn btn-sm btn-success" data-bs-toggle="tooltip" title="Chat">
-                                        <i class="fa fa-comments"></i> 
+                                        <i class="fa fa-comments"></i>
                                     </a>
                                 </td>
                             </tr>

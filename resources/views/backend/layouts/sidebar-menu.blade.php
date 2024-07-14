@@ -19,11 +19,6 @@
                     <span class="nav-main-link-name">Beras</span>
                 </a>
             </li>
-            {{-- <li class="nav-main-item">
-                <a class="nav-main-link" href="javascript:void(0)">
-                    <span class="nav-main-link-name">Pesanan</span>
-                </a>
-            </li> --}}
         </ul>
     </li>
     <li class="nav-main-item">

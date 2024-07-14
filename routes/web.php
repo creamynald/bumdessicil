@@ -52,12 +52,6 @@ Route::middleware('auth')
         });
     });
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::post('/chats/kirim', [ChatController::class, 'kirimChat'])->name('chats.kirim');
-    Route::get('/chats/{userId}', [ChatController::class, 'getChats'])->name('chats.index');
-    Route::get('/semua-chats', [ChatController::class, 'semuaChats'])->name('chats.semua');
-});
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

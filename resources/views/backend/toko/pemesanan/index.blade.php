@@ -72,18 +72,17 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('orders.show', $row->id) }}" class="btn btn-sm btn-primary"
-                                        data-bs-toggle="tooltip" title="Detail">
-                                        <i class="fa fa-eye"></i>
+                                    <a href="https://wa.me/{{ $row->no_hp }}?text=hi,%20saya%20sudah%20proses%20pemesanan%20kamu"
+                                        class="btn btn-sm btn-success" data-bs-toggle="tooltip" title="Chat">
+                                        <i class="fa fa-comments"></i>
                                     </a>
-                                    {{-- button to cancel pemesanan --}}
-                                    @if ($row->status == 'pending')
+                                    {{-- @if ($row->status == 'pending')
                                         <button class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Batalkan"
                                             onclick="cancelOrder('{{ route('orders.update', $row->id) }}')"
                                             data-id="{{ $row->id }}">
                                             <i class="fa fa-times"></i>
                                         </button>
-                                    @endif
+                                    @endif --}}
                                 </td>
                             </tr>
                         @endforeach
@@ -125,6 +124,7 @@
     @include('sweetalert::alert')
     <script>
         $(document).ready(function() {
+
             // Handle delete button click event
             $('.delete-btn').on('click', function() {
                 var id = $(this).closest('tr').data('id');
@@ -187,6 +187,25 @@
                 // Update the form action
                 $('#edit-form').attr('action', '{{ url('admin/toko/jenis-beras') }}/' + id);
             });
+
+            function cancelOrder(url) {
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: 'Pemesanan ini akan dibatalkan!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Batalkan!',
+                    cancelButtonText: 'Tidak, Batal!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Set the form action to the URL passed in
+                        $('#cancel-form').attr('action', url);
+                        // Submit the form
+                        $('#cancel-form').submit();
+                    }
+                });
+            }
         });
     </script>
 

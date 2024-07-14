@@ -36,7 +36,7 @@
                         <i class="fa fa-fw fa-user opacity-25"></i>
                     </a>
                     <a class="dropdown-item d-flex align-items-center justify-content-between"
-                        href="{{ route('chats.kirim') }}">
+                        href="#">
                         <span>Inbox</span>
                         <i class="fa fa-fw fa-envelope-open opacity-25"></i>
                     </a>
