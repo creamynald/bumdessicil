@@ -67,8 +67,10 @@ class berasController extends Controller
             'user_id' => auth()->user()->id,
         ]);
 
-        if($request->no_hp != null) {
-            User::where('id', auth()->user()->id)->update([
+        // check no_hp jika nomor hp sama dengan di database skip langkah ini jika tidak maka update
+        $user = User::find(auth()->user()->id);
+        if ($user->no_hp != $request->no_hp) {
+            $user->update([
                 'no_hp' => $request->no_hp,
             ]);
         }
