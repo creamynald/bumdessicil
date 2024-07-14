@@ -4,6 +4,7 @@ use App\Http\Controllers\backend\permissions\{assignController, roleController, 
 use App\Http\Controllers\backend\toko\{jenisBerasController, berasController, ordersController};
 use App\Http\Controllers\backend\customer\{berasController as customerBerasController, orderController as customerOrderController};
 use App\Http\Controllers\backend\admin\{RekapController};
+use App\Http\Controllers\chat\ChatController;
 use App\Http\Controllers\frontend\homeController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,8 +28,8 @@ Route::middleware('auth')
         Route::prefix('toko')->group(function () {
             Route::resource('jenis-beras', jenisBerasController::class);
             Route::resource('beras', berasController::class);
+            Route::resource('orders', ordersController::class);
         });
-        Route::resource('orders', ordersController::class);
         Route::resource('list-bumdes', RekapController::class);
         Route::resource('list-customer', RekapController::class);
     });
@@ -51,6 +52,12 @@ Route::middleware('auth')
             Route::get('pesanan/{id}', [customerOrderController::class, 'detail'])->name('customer.orders.detail');
         });
     });
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/chats/kirim', [ChatController::class, 'kirimChat'])->name('chats.kirim');
+    Route::get('/chats/{userId}', [ChatController::class, 'getChats'])->name('chats.index');
+    Route::get('/semua-chats', [ChatController::class, 'semuaChats'])->name('chats.semua');
+});
 
 Auth::routes();
 

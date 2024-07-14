@@ -35,7 +35,7 @@
                             <tr data-id="{{ $row->id }}">
                                 <td class="text-center">{{ $index + 1 }}</td>
                                 <td>
-                                    <span class="fw-semibold">{{ $row->name }} {{ url('admin/' . $url) }}</span>
+                                    <span class="fw-semibold">{{ $row->name }}</span>
                                 </td>
                                 <td class="d-none d-sm-table-cell text-center">
                                     <span class="badge bg-success">{{ $row->email }}</span>

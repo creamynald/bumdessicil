@@ -36,16 +36,20 @@ class berasController extends Controller
 
         // Cari objek Beras berdasarkan $id
         $beras = Beras::find($id);
-        $beratBeras = Beras::find($id)->berat;
+        $hargaBeras = Beras::find($id)->harga;
 
         // Hitung total harga
-        $totalHarga = $request->berat * $beratBeras;
+        $totalHarga = $request->berat * $hargaBeras;
+
+        // mendapatkan toko_id dimana idnya adalah id user yang input beras
+        $toko_id = Beras::find($id)->user_id;
 
         // Buat objek Order baru
         $order = new Orders();
         $order->beras_id = $beras->id;
         $order->user_id = auth()->user()->id;
         $order->alamat = $request->alamat;
+        $order->toko_id = $toko_id;
         $order->no_hp = $request->no_hp;
         $order->berat = $request->berat;
         $order->total_harga = $totalHarga;

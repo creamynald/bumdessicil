@@ -20,12 +20,18 @@
             </div>
             <div class="block-content block-content-full">
                 <!-- DataTables functionality is initialized with .js-dataTable-full class in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
+                <!-- Hidden form for updating the status -->
+                <form id="cancel-form" action="" method="POST" style="display: none;">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="status" value="canceled">
+                </form>
                 <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
                     <thead>
                         <tr>
                             <th class="text-center">No</th>
                             <th>Jenis Beras</th>
-                            <th>Toko</th>
+                            <th>Customer</th>
                             <th>Harga</th>
                             <th class="d-none d-sm-table-cell">Status</th>
                             <th class="text-center" style="width: 15%;">Aksi</th>
@@ -39,7 +45,7 @@
                                     <span class="badge bg-success">{{ $row->berat }} Kg</span>
                                 </td>
                                 <td class="fw-semibold"><i class="fa fa-tag" aria-hidden="true"></i>
-                                    {{ $row->beras->user->name }}</td>
+                                    {{ $row->user->name }}</td>
                                 <td class="fw-semibold">{{ formatRupiah($row->beras->harga) }}
                                 </td>
                                 <td class="d-none d-sm-table-cell text-center">
@@ -66,10 +72,18 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('customer.orders.detail', $row->id) }}"
-                                        class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Detail">
+                                    <a href="{{ route('orders.show', $row->id) }}" class="btn btn-sm btn-primary"
+                                        data-bs-toggle="tooltip" title="Detail">
                                         <i class="fa fa-eye"></i>
                                     </a>
+                                    {{-- button to cancel pemesanan --}}
+                                    @if ($row->status == 'pending')
+                                        <button class="btn btn-sm btn-danger" data-bs-toggle="tooltip" title="Batalkan"
+                                            onclick="cancelOrder('{{ route('orders.update', $row->id) }}')"
+                                            data-id="{{ $row->id }}">
+                                            <i class="fa fa-times"></i>
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
