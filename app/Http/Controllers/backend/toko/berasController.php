@@ -36,10 +36,20 @@ class berasController extends Controller
             'deskripsi' => 'nullable',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'no_hp' => 'numeric',
+        ],[
+            'jenis_beras_id.required' => 'Jenis beras harus diisi',
+            'harga.required' => 'Harga harus diisi',
+            'harga.numeric' => 'Harga harus berupa angka',
+            'berat.required' => 'Berat harus diisi',
+            'berat.numeric' => 'Berat harus berupa angka',
+            'foto.image' => 'Foto harus berupa gambar',
+            'foto.mimes' => 'Foto harus berformat jpeg, png, jpg, gif, atau svg',
+            'foto.max' => 'Ukuran foto maksimal 2MB',
+            'no_hp.numeric' => 'Nomor HP harus berupa angka',
         ]);
 
         if ($validator->fails()) {
-            Alert::error('Gagal', 'Data beras gagal ditambahkan');
+            Alert::error('Gagal', $validator->errors()->first());
             return redirect()->route('beras.index');
         }
 

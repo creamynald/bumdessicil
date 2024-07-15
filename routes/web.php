@@ -29,6 +29,8 @@ Route::middleware('auth')
             Route::resource('beras', berasController::class);
             Route::resource('orders', ordersController::class);
             Route::put('pemesanan/{id}', [ordersController::class, 'cancel'])->name('admin.toko.pemesanan.cancel');
+            Route::get('pemesanan/export-pdf', [ordersController::class, 'exportPdf'])->name('orders.exportPdf');
+
         });
         Route::resource('list-bumdes', RekapController::class);
         Route::resource('list-customer', RekapController::class);

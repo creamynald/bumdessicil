@@ -46,7 +46,8 @@
                             <div class="block-content block-content-full">
                                 <div class="row g-sm">
                                     <div class="col">
-                                        <a href="{{ route('lihat-beras', $row->id) }}" class="btn btn-sm btn-primary w-100">
+                                        <a href="{{ route('lihat-beras', $row->id) }}"
+                                            class="btn btn-sm btn-primary w-100">
                                             <i class="fa fa-fw fa-shopping-cart opacity-50 me-1"></i>
                                             Beli
                                         </a>

@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
-
 return [
 
     /*
@@ -174,6 +173,7 @@ return [
          * Custom Service Providers...
          */
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -187,9 +187,11 @@ return [
     |
     */
 
+
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ])->toArray(),
 
 ];

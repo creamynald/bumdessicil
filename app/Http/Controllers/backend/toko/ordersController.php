@@ -4,14 +4,21 @@ namespace App\Http\Controllers\backend\toko;
 
 use App\Http\Controllers\Controller;
 use App\Models\Orders;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
+use PDF;
+use Illuminate\Support\Facades\View;
 
 class ordersController extends Controller
 {
     public function index()
     {
         return view('backend.toko.pemesanan.index', [
-            'pemesanan' => Orders::where('toko_id', auth()->user()->id)->get(),
+            'pemesanan' => Orders::where('toko_id', auth()->user()->id)
+                ->latest()
+                ->get(),
+            'total_pendapatan' => Orders::where('toko_id', auth()->user()->id)->sum('total_harga'),
         ]);
     }
 
@@ -20,6 +27,16 @@ class ordersController extends Controller
         return view('backend.toko.pemesanan.detail', [
             'lihat_pesanan' => Orders::find($id),
         ]);
+    }
+
+    public function exportPdf()
+    {
+        $pemesanan = Orders::all();
+        $total_pendapatan = $pemesanan->sum('total_harga');
+
+        $pdf = FacadePdf::loadView('backend.toko.pemesanan.pdf', compact('pemesanan', 'total_pendapatan'));
+
+        return $pdf->download('pemesanan.pdf');
     }
 
     public function update(Request $request, $id)
