@@ -14,61 +14,64 @@
         </div>
         <!-- END Header -->
 
-        <div class="row">
-            <!-- Row #2 -->
-            <div class="col-md-6">
-                <div class="block block-rounded">
-                    <div class="block-header">
-                        <h3 class="block-title">
-                            Pendapatan Bulanan <small>(This month)</small>
-                        </h3>
-                        <div class="block-options">
-                            <button type="button" class="btn-block-option" data-toggle="block-option"
-                                data-action="state_toggle" data-action-mode="demo">
-                                <i class="si si-refresh"></i>
-                            </button>
-                            <button type="button" class="btn-block-option">
-                                <i class="si si-wrench"></i>
-                            </button>
+        {{-- user has role bumdes --}}
+        @if (auth()->user()->hasRole('bumdes'))
+            <div class="row">
+                <!-- Row #2 -->
+                <div class="col-md-6">
+                    <div class="block block-rounded">
+                        <div class="block-header">
+                            <h3 class="block-title">
+                                Pendapatan Bulanan <small>(This month)</small>
+                            </h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option" data-toggle="block-option"
+                                    data-action="state_toggle" data-action-mode="demo">
+                                    <i class="si si-refresh"></i>
+                                </button>
+                                <button type="button" class="btn-block-option">
+                                    <i class="si si-wrench"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content p-1 bg-body-light"
+                            data-sales-labels='["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]'
+                            data-sales-data='[100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650]'>
+                            <canvas id="js-chartjs-dashboard-monthly"
+                                style="height: 290px; display: block; box-sizing: border-box; width: 580px;" width="1160"
+                                height="580"></canvas>
                         </div>
                     </div>
-                    <div class="block-content p-1 bg-body-light"
-                        data-sales-labels='["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]'
-                        data-sales-data='[100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650]'>
-                        <canvas id="js-chartjs-dashboard-monthly"
-                            style="height: 290px; display: block; box-sizing: border-box; width: 580px;" width="1160"
-                            height="580"></canvas>
-                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="block block-rounded">
-                    <div class="block-header">
-                        <h3 class="block-title">
-                            Earnings <small>This week</small>
-                        </h3>
-                        <div class="block-options">
-                            <button type="button" class="btn-block-option" data-toggle="block-option"
-                                data-action="state_toggle" data-action-mode="demo">
-                                <i class="si si-refresh"></i>
-                            </button>
-                            <button type="button" class="btn-block-option">
-                                <i class="si si-wrench"></i>
-                            </button>
+                <div class="col-md-6">
+                    <div class="block block-rounded">
+                        <div class="block-header">
+                            <h3 class="block-title">
+                                Earnings <small>This week</small>
+                            </h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option" data-toggle="block-option"
+                                    data-action="state_toggle" data-action-mode="demo">
+                                    <i class="si si-refresh"></i>
+                                </button>
+                                <button type="button" class="btn-block-option">
+                                    <i class="si si-wrench"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content p-1 bg-body-light">
+                            <!-- Chart.js Chart is initialized in js/pages/be_pages_dashboard.min.js which was auto compiled from _js/pages/be_pages_dashboard.js -->
+                            <!-- For more info and examples you can check out http://www.chartjs.org/docs/ -->
+                            <canvas id="js-chartjs-dashboard-lines2"
+                                style="height: 290px; display: block; box-sizing: border-box; width: 580px;" width="1160"
+                                height="580"></canvas>
                         </div>
                     </div>
-                    <div class="block-content p-1 bg-body-light">
-                        <!-- Chart.js Chart is initialized in js/pages/be_pages_dashboard.min.js which was auto compiled from _js/pages/be_pages_dashboard.js -->
-                        <!-- For more info and examples you can check out http://www.chartjs.org/docs/ -->
-                        <canvas id="js-chartjs-dashboard-lines2"
-                            style="height: 290px; display: block; box-sizing: border-box; width: 580px;" width="1160"
-                            height="580"></canvas>
-                    </div>
                 </div>
+                <!-- END Row #2 -->
             </div>
-            <!-- END Row #2 -->
-        </div>
+        @endif
     </div>
 @endsection
 
