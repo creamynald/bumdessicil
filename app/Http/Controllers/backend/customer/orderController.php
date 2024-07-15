@@ -12,6 +12,7 @@ class orderController extends Controller
     {
         return view('backend.customer.pesanan.index',[
             'pesanan' => Orders::where('user_id', auth()->user()->id)->get(),
+            'total_pembelian' => Orders::where('user_id', auth()->user()->id)->sum('total_harga'),
         ]);
     }
 

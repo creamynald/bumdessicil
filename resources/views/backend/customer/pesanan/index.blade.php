@@ -26,8 +26,8 @@
                             <th class="text-center">No</th>
                             <th>Jenis Beras</th>
                             <th>Toko</th>
-                            <th>Harga</th>
                             <th class="d-none d-sm-table-cell">Status</th>
+                            <th>Harga</th>
                             <th class="text-center" style="width: 15%;">Aksi</th>
                         </tr>
                     </thead>
@@ -40,8 +40,6 @@
                                 </td>
                                 <td class="fw-semibold"><i class="fa fa-tag" aria-hidden="true"></i>
                                     {{ $row->beras->user->name }}</td>
-                                <td class="fw-semibold">{{ formatRupiah($row->beras->harga) }}
-                                </td>
                                 <td class="d-none d-sm-table-cell text-center">
                                     @if ($row->status == 'pending')
                                         <span class="badge bg-warning">
@@ -65,12 +63,13 @@
                                         </span>
                                     @endif
                                 </td>
+                                <td class="fw-semibold">{{ formatRupiah($row->total_harga) }}
+                                </td>
                                 <td class="text-center">
-                                    <a href="{{ route('customer.orders.detail', $row->id) }}"
-                                        class="btn btn-sm btn-primary" data-bs-toggle="tooltip" title="Detail">
+                                    {{-- <a href="{{ route('customer.orders.detail', $row->id) }}" class="btn btn-sm btn-primary"
+                                        data-bs-toggle="tooltip" title="Detail">
                                         <i class="fa fa-eye"></i>
-                                    </a>
-                                    {{-- message icon --}}
+                                    </a> --}}
                                     <a href="https://wa.me/{{ $row->user->no_hp }}?text=Hi,%20saya%20telah%20order%20di%20toko%20kamu,%20mohon%20konfirmasi%20dan%20diproses%20ya,%20terimakasih"
                                         class="btn btn-sm btn-success" data-bs-toggle="tooltip" title="Chat">
                                         <i class="fa fa-comments"></i>
@@ -79,6 +78,12 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4" rowspan="row" class="text-center">Total Pembelian</th>
+                            <th colspan="2">{{ formatRupiah($total_pembelian) }}</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

@@ -27,24 +27,36 @@ class berasController extends Controller
 
     public function store(Request $request, $id)
     {
-        // Validasi input
-        $request->validate([
-            'alamat' => 'required',
-            'no_hp' => 'required',
-            'berat' => 'required|numeric|min:1',
-        ]);
+        $validatedData = $request->validate(
+            [
+                'alamat' => 'required',
+                'no_hp' => 'required',
+                'berat' => 'required|numeric|min:1',
+                'pembayaran' => 'required|in:cod,transfer',
+                'bukti_pembayaran' => 'required_if:pembayaran,transfer|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ],
+            [
+                'pembayaran.required' => 'Metode pembayaran harus dipilih',
+                'bukti_pembayaran.required_if' => 'Bukti pembayaran harus diupload jika metode pembayaran adalah transfer',
+            ]
+        );
 
-        // Cari objek Beras berdasarkan $id
-        $beras = Beras::find($id);
-        $hargaBeras = Beras::find($id)->harga;
+        $buktiPembayaranPath = null;
 
-        // Hitung total harga
+        if ($request->hasFile('bukti_pembayaran')) {
+            $buktiPembayaran = $request->file('bukti_pembayaran');
+            $namaBuktiPembayaran = time() . '.' . $buktiPembayaran->getClientOriginalExtension();
+            $buktiPembayaran->move(public_path('bukti_pembayaran'), $namaBuktiPembayaran);
+            $buktiPembayaranPath = 'bukti_pembayaran/' . $namaBuktiPembayaran;
+        }
+
+        $beras = Beras::findOrFail($id);
+        $hargaBeras = $beras->harga;
+
         $totalHarga = $request->berat * $hargaBeras;
 
-        // mendapatkan toko_id dimana idnya adalah id user yang input beras
-        $toko_id = Beras::find($id)->user_id;
+        $toko_id = $beras->user_id;
 
-        // Buat objek Order baru
         $order = new Orders();
         $order->beras_id = $beras->id;
         $order->user_id = auth()->user()->id;
@@ -53,12 +65,15 @@ class berasController extends Controller
         $order->no_hp = $request->no_hp;
         $order->berat = $request->berat;
         $order->total_harga = $totalHarga;
+        $order->pembayaran = $request->pembayaran; // Ensure the payment type is saved
 
-        // Simpan pesanan
+        if ($buktiPembayaranPath) {
+            $order->bukti_pembayaran = $buktiPembayaranPath;
+        }
+
         $order->save();
 
-        // pengurangan stok beras
-        $beras->berat = $beras->berat - $request->berat;
+        $beras->berat -= $request->berat;
         $beras->save();
 
         return to_route('customer.orders')->with('success', 'Pesanan berhasil ditambahkan');

@@ -14,9 +14,11 @@
                     <small>Table @yield('subTitle')</small>
                 </h3>
 
-                {{-- <button href="#" data-bs-toggle="modal" data-bs-target="#modal-large" class="btn-block-option">
-                    <i class="si si-plus"></i> Tambah Data
-                </button> --}}
+                <div class="block-options">
+                    <button type="button" class="btn btn-sm btn-danger">
+                        <i class="fa fa-file"></i> Export PDF
+                    </button>
+                </div>
             </div>
             <div class="block-content block-content-full">
                 <!-- DataTables functionality is initialized with .js-dataTable-full class in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
@@ -32,8 +34,8 @@
                             <th class="text-center">No</th>
                             <th>Jenis Beras</th>
                             <th>Customer</th>
-                            <th>Harga</th>
                             <th class="d-none d-sm-table-cell">Status</th>
+                            <th>Total Harga</th>
                             <th class="text-center" style="width: 15%;">Aksi</th>
                         </tr>
                     </thead>
@@ -46,8 +48,6 @@
                                 </td>
                                 <td class="fw-semibold"><i class="fa fa-tag" aria-hidden="true"></i>
                                     {{ $row->user->name }}</td>
-                                <td class="fw-semibold">{{ formatRupiah($row->beras->harga) }}
-                                </td>
                                 <td class="d-none d-sm-table-cell text-center">
                                     @if ($row->status == 'pending')
                                         <span class="badge bg-warning">
@@ -71,6 +71,8 @@
                                         </span>
                                     @endif
                                 </td>
+                                <td class="fw-semibold">{{ formatRupiah($row->total_harga) }}
+                                </td>
                                 <td class="text-center">
                                     <a href="https://wa.me/{{ $row->no_hp }}?text=hi,%20saya%20sudah%20proses%20pemesanan%20kamu"
                                         class="btn btn-sm btn-success" data-bs-toggle="tooltip" title="Chat">
@@ -91,6 +93,12 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4" rowspan="row" class="text-center">Total Penjualan</th>
+                            <th colspan="2">{{ formatRupiah($total_pendapatan) }}</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

@@ -12,6 +12,7 @@ class ordersController extends Controller
     {
         return view('backend.toko.pemesanan.index', [
             'pemesanan' => Orders::where('toko_id', auth()->user()->id)->get(),
+            'total_pendapatan' => Orders::where('toko_id', auth()->user()->id)->sum('total_harga'),
         ]);
     }
 
