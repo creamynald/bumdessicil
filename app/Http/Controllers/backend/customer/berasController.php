@@ -7,6 +7,8 @@ use App\Models\Beras;
 use App\Models\jenisBeras;
 use App\Models\Orders;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class berasController extends Controller
 {
@@ -45,10 +47,16 @@ class berasController extends Controller
 
         if ($request->hasFile('bukti_pembayaran')) {
             $buktiPembayaran = $request->file('bukti_pembayaran');
-            $namaBuktiPembayaran = time() . '.' . $buktiPembayaran->getClientOriginalExtension();
-            $buktiPembayaran->move(public_path('bukti_pembayaran'), $namaBuktiPembayaran);
-            $buktiPembayaranPath = 'bukti_pembayaran/' . $namaBuktiPembayaran;
-        }
+            $username = Auth::user()->name; // Mengambil nama pengguna yang sedang login
+            $username = str_replace(' ', '-', $username); // Mengganti spasi dengan tanda -
+            $jenisBeras = $request->input('jenis_beras_id'); // Mengambil jenis beras dari input
+            $date = Carbon::now()->format('Ymd'); // Mengambil tanggal sekarang dalam format Ymd
+        
+            // Membuat nama file sesuai format [username]-[jenis beras]-[tanggal input].[ext]
+            $filename = $username . '-' . $jenisBeras . '-' . $date . '.' . $buktiPembayaran->getClientOriginalExtension();
+            $buktiPembayaranPath = 'bukti_pembayaran/' . $filename;
+            $buktiPembayaran->move(public_path('bukti_pembayaran'), $filename);
+        }        
 
         $beras = Beras::findOrFail($id);
         $hargaBeras = $beras->harga;

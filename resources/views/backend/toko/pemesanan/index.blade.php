@@ -15,7 +15,8 @@
                 </h3>
 
                 <div class="block-options">
-                    <button type="button" class="btn btn-sm btn-danger">
+                    <button type="button" class="btn btn-sm btn-danger"
+                        onclick="window.location='{{ route('orders.exportPdf') }}'">
                         <i class="fa fa-file"></i> Export PDF
                     </button>
                 </div>
@@ -79,7 +80,7 @@
                                         <i class="fa fa-comments"></i>
                                     </a>
                                     <a href="{{ route('orders.show', $row->id) }}" class="btn btn-sm btn-primary"
-                                        data-bs-toggle="tooltip" title="Chat">
+                                        data-bs-toggle="tooltip" title="Detail">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     @if ($row->status == 'pending')
