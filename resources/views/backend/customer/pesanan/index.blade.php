@@ -46,22 +46,22 @@
                                     @if ($row->status == 'pending')
                                         <span class="badge bg-warning">
                                             <i class="fa fa-clock" aria-hidden="true"></i>
-                                            {{ $row->status }}
+                                            Menunggu Konfirmasi
                                         </span>
                                     @elseif($row->status == 'processing')
                                         <span class="badge bg-info">
                                             <i class="fa fa-spinner" aria-hidden="true"></i>
-                                            {{ $row->status }}
+                                            Sedag Diproses
                                         </span>
                                     @elseif($row->status == 'completed')
                                         <span class="badge bg-success">
                                             <i class="fa fa-check" aria-hidden="true"></i>
-                                            {{ $row->status }}
+                                            Selesai / telah dikirim
                                         </span>
                                     @else($row->status == 'cancelled')
                                         <span class="badge bg-danger">
                                             <i class="fa fa-times" aria-hidden="true"></i>
-                                            {{ $row->status }}
+                                            Pemesanan dibatalkan
                                         </span>
                                     @endif
                                 </td>

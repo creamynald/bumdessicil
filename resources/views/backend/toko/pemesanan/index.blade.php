@@ -52,22 +52,22 @@
                                     @if ($row->status == 'pending')
                                         <span class="badge bg-warning">
                                             <i class="fa fa-clock" aria-hidden="true"></i>
-                                            {{ $row->status }}
+                                            Menunggu Konfirmasi
                                         </span>
                                     @elseif($row->status == 'processing')
                                         <span class="badge bg-info">
                                             <i class="fa fa-spinner" aria-hidden="true"></i>
-                                            {{ $row->status }}
+                                            Sedag Diproses
                                         </span>
                                     @elseif($row->status == 'completed')
                                         <span class="badge bg-success">
                                             <i class="fa fa-check" aria-hidden="true"></i>
-                                            {{ $row->status }}
+                                            Selesai / telah dikirim
                                         </span>
                                     @else($row->status == 'cancelled')
                                         <span class="badge bg-danger">
                                             <i class="fa fa-times" aria-hidden="true"></i>
-                                            {{ $row->status }}
+                                            Pemesanan dibatalkan
                                         </span>
                                     @endif
                                 </td>
@@ -76,11 +76,15 @@
                                         class="btn btn-sm btn-success" data-bs-toggle="tooltip" title="Chat">
                                         <i class="fa fa-comments"></i>
                                     </a>
+                                    <a href="{{ route('orders.show', $row->id) }}" class="btn btn-sm btn-primary"
+                                        data-bs-toggle="tooltip" title="Chat">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
                                     @if ($row->status == 'pending')
                                         <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="tooltip"
                                             title="Batalkan Pesanan"
                                             onclick="cancelOrder('{{ url('admin/toko/pemesanan/' . $row->id) }}')">
-                                            <i class="fa fa-times"></i>
+                                            <i class="fa fa-trash"></i>
                                         </button>
                                     @endif
                                 </td>
