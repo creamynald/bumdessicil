@@ -22,16 +22,8 @@
                     <div class="block block-rounded">
                         <div class="block-header">
                             <h3 class="block-title">
-                                Pendapatan Bulanan <small>(This month)</small>
+                                Pendapatan Bulanan <small>(2024)</small>
                             </h3>
-                            <div class="block-options">
-                                <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
-                                    <i class="si si-refresh"></i>
-                                </button>
-                                <button type="button" class="btn-block-option">
-                                    <i class="si si-wrench"></i>
-                                </button>
-                            </div>
                         </div>
                         <div class="block-content p-1 bg-body-light">
                             <canvas id="js-chartjs-dashboard-monthly" style="height: 290px; display: block; box-sizing: border-box; width: 580px;" width="1160" height="580"></canvas>
