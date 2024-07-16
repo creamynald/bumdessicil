@@ -41,9 +41,11 @@ class dashboardController extends Controller
 
         // kirim data ke view
         if (auth()->user()->hasRole('admin')) {
-            return view('backend.dashboard', []);
+            return view('backend.dashboard', [
+                'rekap_penjualan_perbulan' => $rekap_penjualan_perbulan,]);
         } elseif (auth()->user()->hasRole('customer')) {
-            return view('backend.dashboard', []);
+            return view('backend.dashboard', [
+                'rekap_penjualan_perbulan' => $rekap_penjualan_perbulan,]);
         } else {
             return view('backend.dashboard', [
                 'rekap_penjualan_perbulan' => $rekap_penjualan_perbulan,
