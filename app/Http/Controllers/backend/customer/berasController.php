@@ -31,6 +31,7 @@ class berasController extends Controller
     {
         $validatedData = $request->validate(
             [
+                'nama_pembeli' => 'required',
                 'alamat' => 'required',
                 'no_hp' => 'required',
                 'berat' => 'required|numeric|min:1',
@@ -68,6 +69,7 @@ class berasController extends Controller
         $order = new Orders();
         $order->beras_id = $beras->id;
         $order->user_id = auth()->user()->id;
+        $order->nama_pembeli = $request->nama_pembeli;
         $order->alamat = $request->alamat;
         $order->toko_id = $toko_id;
         $order->no_hp = $request->no_hp;

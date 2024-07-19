@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('beras_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('toko_id')->onDelete('cascade');
+            $table->string('nama_pembeli');
             $table->enum('pembayaran', ['cod', 'transfer']);
             $table->integer('berat');
             $table->integer('total_harga');
