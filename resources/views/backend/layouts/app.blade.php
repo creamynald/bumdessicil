@@ -5,19 +5,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <title>{{ config('app.name') }} - Bootstrap 5 Admin Template &amp; UI Framework</title>
+    <title>BUMDESSICIL - Badan Usaha Milik Desa Siak Kecil</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <meta name="description"
-        content="Codebase - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
-    <meta name="author" content="pixelcave">
+    <meta name="description" content="BUMDESSICIL - Badan Usaha Milik Desa Siak Kecil">
+    <meta name="author" content="bumdessicil">
     <meta name="robots" content="noindex, nofollow">
 
     <!-- Open Graph Meta -->
-    <meta property="og:title" content="Codebase - Bootstrap 5 Admin Template &amp; UI Framework">
-    <meta property="og:site_name" content="Codebase">
-    <meta property="og:description"
-        content="Codebase - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+    <meta property="og:title" content="BUMDESSICIL - Badan Usaha Milik Desa Siak Kecil">
+    <meta property="og:site_name" content="BUMDESSICIL">
+    <meta property="og:description" content="BUMDESSICIL - Badan Usaha Milik Desa Siak Kecil">
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
@@ -43,7 +41,7 @@
 
 <body>
     <!-- SweetAlert2 -->
-    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+    @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
     <!-- Page Container -->
     <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed">
 
@@ -113,8 +111,8 @@
                         {{-- Crafted with <i class="fa fa-heart text-danger"></i> by <a class="fw-semibold" href="{{ config('app.url') }}" target="_blank">rere</a> --}}
                     </div>
                     <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-start">
-                        <a class="fw-semibold" href="{{ config('app.url') }}"
-                            target="_blank">{{ config('app.name') }}</a> &copy; <span data-toggle="year-copy"></span>
+                        <a class="fw-semibold" href="{{ config('app.url') }}" target="_blank">BUMDESSICIL</a> &copy;
+                        <span data-toggle="year-copy"></span>
                     </div>
                 </div>
             </div>
@@ -132,22 +130,22 @@
     <script src="{{ asset('assets/js/codebase.app.min.js') }}"></script>
 
     <script>
-        @if(session('success'))
+        @if (session('success'))
             Swal.fire({
                 icon: 'success',
                 title: 'Success',
                 text: '{{ session('success') }}',
             });
         @endif
-    
-        @if(session('error'))
+
+        @if (session('error'))
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
                 text: '{{ session('error') }}',
             });
         @endif
-    </script>    
+    </script>
 
     @stack('js')
 </body>

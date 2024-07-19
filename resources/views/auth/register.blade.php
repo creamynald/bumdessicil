@@ -5,7 +5,7 @@
         @csrf
         <div class="block block-themed block-rounded block-fx-shadow">
             <div class="block-header bg-gd-emerald">
-                <h3 class="block-title">Form Register</h3>
+                <h3 class="block-title">Form Pendaftaran</h3>
             </div>
             <div class="block-content">
                 <div class="form-floating mb-4">
@@ -19,12 +19,12 @@
                 <div class="form-floating mb-4">
                     <input type="password" class="form-control" id="password" name="password"
                         placeholder="Enter your password">
-                    <label class="form-label" for="password">Password</label>
+                    <label class="form-label" for="password">Kata sandi</label>
                 </div>
                 <div class="form-floating mb-4">
                     <input type="password" class="form-control" id="password-confirm" name="password_confirmation"
                         placeholder="Confirm password">
-                    <label class="form-label" for="password-confirm">Confirm Password</label>
+                    <label class="form-label" for="password-confirm">Ulangi Kata sandi</label>
                 </div>
                 {{-- dropdown with class form-floating --}}
                 <div class="form-floating mb-4">
@@ -37,14 +37,12 @@
                 <div class="row">
                     <div class="col-sm-6 d-sm-flex align-items-center push">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="signup-terms" name="signup-terms"
-                                value="1">
-                            <label class="form-check-label" for="signup-terms">I agree to Terms</label>
+                            <a href="{{ route('login') }}" class="link-fx text-muted">Sudah punya akun? masuk</a>
                         </div>
                     </div>
                     <div class="col-sm-6 text-sm-end push">
                         <button type="submit" class="btn btn-lg btn-alt-primary fw-semibold">
-                            Create Account
+                            Buat akun
                         </button>
                     </div>
                 </div>

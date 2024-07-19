@@ -64,28 +64,28 @@ class PermissionSeeder extends Seeder
         $userCustomer = \App\Models\User::factory()->create([
             'name' => 'Customer 1',
             'email' => 'customer1@bumdessicil.test',
-            'no_hp' => '081234567890',
+            'no_hp' => '6285263216699',
         ]);
         $userCustomer->assignRole($role1);
 
         $userBumdes1 = \App\Models\User::factory()->create([
             'name' => 'Bumdes 1',
             'email' => 'bumdes1@bumdessicil.test',
-            'no_hp' => '081234567890',
+            'no_hp' => '6285263216699',
         ]);
         $userBumdes1->assignRole($role2);
 
         $userBumdes2 = \App\Models\User::factory()->create([
             'name' => 'Bumdes 2',
             'email' => 'bumdes2@bumdessicil.test',
-            'no_hp' => '081234567890',
+            'no_hp' => '6285263216699',
         ]);
         $userBumdes2->assignRole($role2);
 
         $userAdmin = \App\Models\User::factory()->create([
             'name' => 'Super Admin',
             'email' => 'superadmin@bumdessicil.test',
-            'no_hp' => '081234567890',
+            'no_hp' => '6285263216699',
         ]);
         $userAdmin->assignRole($role3);
     }

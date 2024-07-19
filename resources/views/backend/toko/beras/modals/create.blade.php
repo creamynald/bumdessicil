@@ -67,8 +67,9 @@
                                     <i class="fa fa-phone"></i>
                                 </span>
                                 <input type="text" class="form-control text-center" id="no_hp" name="no_hp"
-                                    placeholder="08XXXXXXXXXX">
+                                    placeholder="628XXXXXXXXXX">
                             </div>
+                            <span class="text-success">*gunakan format 628XXXXXXXXXX</span>
                         </div>
                         <div class="d-flex justify-content-end mb-4">
                             <button type="submit" class="btn btn-primary">

@@ -14,224 +14,137 @@
         </div>
         <!-- END Header -->
 
-        <div class="row">
-            <!-- Row #2 -->
-            <div class="col-md-6">
-                <div class="block block-rounded">
-                    <div class="block-header">
-                        <h3 class="block-title">
-                            Pendapatan Bulanan <small>(This month)</small>
-                        </h3>
-                        <div class="block-options">
-                            <button type="button" class="btn-block-option" data-toggle="block-option"
-                                data-action="state_toggle" data-action-mode="demo">
-                                <i class="si si-refresh"></i>
-                            </button>
-                            <button type="button" class="btn-block-option">
-                                <i class="si si-wrench"></i>
-                            </button>
+        {{-- user has role bumdes --}}
+        @if (auth()->user()->hasRole('bumdes'))
+            <div class="row">
+                <!-- Row #2 -->
+                <div class="col-md-6">
+                    <div class="block block-rounded">
+                        <div class="block-header">
+                            <h3 class="block-title">
+                                Pendapatan Bulanan <small>(2024)</small>
+                            </h3>
+                        </div>
+                        <div class="block-content p-1 bg-body-light">
+                            <canvas id="js-chartjs-dashboard-monthly" style="height: 290px; display: block; box-sizing: border-box; width: 580px;" width="1160" height="580"></canvas>
                         </div>
                     </div>
-                    <div class="block-content p-1 bg-body-light"
-                        data-sales-labels='["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]'
-                        data-sales-data='[100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650]'>
-                        <canvas id="js-chartjs-dashboard-monthly"
-                            style="height: 290px; display: block; box-sizing: border-box; width: 580px;" width="1160"
-                            height="580"></canvas>
-                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-6">
-                <div class="block block-rounded">
-                    <div class="block-header">
-                        <h3 class="block-title">
-                            Earnings <small>This week</small>
-                        </h3>
-                        <div class="block-options">
-                            <button type="button" class="btn-block-option" data-toggle="block-option"
-                                data-action="state_toggle" data-action-mode="demo">
-                                <i class="si si-refresh"></i>
-                            </button>
-                            <button type="button" class="btn-block-option">
-                                <i class="si si-wrench"></i>
-                            </button>
+                {{-- <div class="col-md-6">
+                    <div class="block block-rounded">
+                        <div class="block-header">
+                            <h3 class="block-title">
+                                Earnings <small>This week</small>
+                            </h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option" data-toggle="block-option"
+                                    data-action="state_toggle" data-action-mode="demo">
+                                    <i class="si si-refresh"></i>
+                                </button>
+                                <button type="button" class="btn-block-option">
+                                    <i class="si si-wrench"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content p-1 bg-body-light">
+                            <!-- Chart.js Chart is initialized in js/pages/be_pages_dashboard.min.js which was auto compiled from _js/pages/be_pages_dashboard.js -->
+                            <!-- For more info and examples you can check out http://www.chartjs.org/docs/ -->
+                            <canvas id="js-chartjs-dashboard-lines2"
+                                style="height: 290px; display: block; box-sizing: border-box; width: 580px;" width="1160"
+                                height="580"></canvas>
                         </div>
                     </div>
-                    <div class="block-content p-1 bg-body-light">
-                        <!-- Chart.js Chart is initialized in js/pages/be_pages_dashboard.min.js which was auto compiled from _js/pages/be_pages_dashboard.js -->
-                        <!-- For more info and examples you can check out http://www.chartjs.org/docs/ -->
-                        <canvas id="js-chartjs-dashboard-lines2"
-                            style="height: 290px; display: block; box-sizing: border-box; width: 580px;" width="1160"
-                            height="580"></canvas>
-                    </div>
-                </div>
+                </div> --}}
+                <!-- END Row #2 -->
             </div>
-            <!-- END Row #2 -->
-        </div>
+        @endif
     </div>
 @endsection
 
 @push('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        /*!
-         * codebase - v5.5.0
-         * @author pixelcave - https://pixelcave.com
-         * Copyright (c) 2023
-         */
-        ! function() {
-            class e {
-                static initDashboardChartJS() {
-                    Chart.defaults.color = "#818d96",
-                        Chart.defaults.scale.grid.color = "transparent",
-                        Chart.defaults.scale.grid.zeroLineColor = "transparent",
-                        Chart.defaults.scale.display = !1,
-                        Chart.defaults.scale.beginAtZero = !0,
-                        Chart.defaults.elements.line.borderWidth = 2,
-                        Chart.defaults.elements.point.radius = 5,
-                        Chart.defaults.elements.point.hoverRadius = 7,
-                        Chart.defaults.plugins.tooltip.radius = 3,
-                        Chart.defaults.plugins.legend.display = !1;
+        document.addEventListener('DOMContentLoaded', function() {
+            var ctx = document.getElementById('js-chartjs-dashboard-monthly').getContext('2d');
 
-                    let e, t,
-                        a = document.getElementById("js-chartjs-dashboard-lines"),
-                        o = document.getElementById("js-chartjs-dashboard-lines2"),
-                        m = document.getElementById("js-chartjs-dashboard-monthly");
+            var labels = {!! json_encode($rekap_penjualan_perbulan->pluck('bulan')) !!};
+            var data = {!! json_encode($rekap_penjualan_perbulan->pluck('total')) !!};
 
-                    null !== a && (e = new Chart(a, {
-                        type: "line",
-                        data: {
-                            labels: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
-                            datasets: [{
-                                label: "This Week",
-                                fill: !0,
-                                backgroundColor: "rgba(2, 132, 199, .45)",
-                                borderColor: "rgba(2, 132, 199, 1)",
-                                pointBackgroundColor: "rgba(2, 132, 199, 1)",
-                                pointBorderColor: "#fff",
-                                pointHoverBackgroundColor: "#fff",
-                                pointHoverBorderColor: "rgba(2, 132, 199, 1)",
-                                data: [25, 21, 23, 38, 36, 35, 39]
-                            }]
-                        },
-                        options: {
-                            responsive: !0,
-                            maintainAspectRatio: !1,
-                            tension: .4,
-                            scales: {
-                                y: {
-                                    suggestedMin: 0,
-                                    suggestedMax: 50
-                                }
-                            },
-                            interaction: {
-                                intersect: !1
-                            },
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(e) {
-                                            return " " + e.parsed.y + " Sales"
-                                        }
-                                    }
+            var backgroundColors = [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ];
+
+            var borderColors = [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ];
+
+            var monthlyChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Total Penjualan',
+                        data: data,
+                        backgroundColor: backgroundColors,
+                        borderColor: borderColors,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    // Menggunakan format rupiah pada sumbu Y
+                                    return 'Rp ' + new Intl.NumberFormat('id-ID', {
+                                        style: 'decimal',
+                                        currency: 'IDR'
+                                    }).format(value);
                                 }
                             }
                         }
-                    }));
-
-                    null !== o && (t = new Chart(o, {
-                        type: "line",
-                        data: {
-                            labels: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
-                            datasets: [{
-                                label: "This Week",
-                                fill: !0,
-                                backgroundColor: "rgba(101, 163, 13, .45)",
-                                borderColor: "rgba(101, 163, 13, 1)",
-                                pointBackgroundColor: "rgba(101, 163, 13, 1)",
-                                pointBorderColor: "#fff",
-                                pointHoverBackgroundColor: "#fff",
-                                pointHoverBorderColor: "rgba(101, 163, 13, 1)",
-                                data: [190, 219, 235, 320, 360, 354, 390]
-                            }]
-                        },
-                        options: {
-                            responsive: !0,
-                            maintainAspectRatio: !1,
-                            tension: .4,
-                            scales: {
-                                y: {
-                                    suggestedMin: 0,
-                                    suggestedMax: 480
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                                if (label) {
+                                    label += ': ';
                                 }
-                            },
-                            interaction: {
-                                intersect: !1
-                            },
-                            plugins: {
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(e) {
-                                            return " $" + e.parsed.y
-                                        }
-                                    }
-                                }
+                                label += 'Rp ' + new Intl.NumberFormat('id-ID', {
+                                    style: 'decimal',
+                                    currency: 'IDR'
+                                }).format(tooltipItem.yLabel);
+                                return label;
                             }
                         }
-                    }));
-
-                    if (null !== m) {
-                        const salesElement = m.closest('.block-content');
-                        const salesLabels = JSON.parse(salesElement.getAttribute('data-sales-labels'));
-                        const salesData = JSON.parse(salesElement.getAttribute('data-sales-data'));
-                        new Chart(m, {
-                            type: 'line',
-                            data: {
-                                labels: salesLabels,
-                                datasets: [{
-                                    label: 'Penjualan Bulanan',
-                                    fill: true,
-                                    backgroundColor: 'rgba(2, 132, 199, .45)',
-                                    borderColor: 'rgba(2, 132, 199, 1)',
-                                    pointBackgroundColor: 'rgba(2, 132, 199, 1)',
-                                    pointBorderColor: '#fff',
-                                    pointHoverBackgroundColor: '#fff',
-                                    pointHoverBorderColor: 'rgba(2, 132, 199, 1)',
-                                    data: salesData
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                maintainAspectRatio: false,
-                                tension: .4,
-                                scales: {
-                                    y: {
-                                        suggestedMin: 0,
-                                        suggestedMax: Math.max(...salesData) + 10
-                                    }
-                                },
-                                interaction: {
-                                    intersect: false
-                                },
-                                plugins: {
-                                    tooltip: {
-                                        callbacks: {
-                                            label: function(context) {
-                                                return ` ${context.parsed.y} Sales`;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        });
                     }
                 }
-                static init() {
-                    this.initDashboardChartJS();
-                }
-            }
-            Codebase.onLoad((() => e.init()));
-        }();
+            });
+        });
     </script>
 @endpush
