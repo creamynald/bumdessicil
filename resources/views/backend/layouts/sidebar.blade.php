@@ -9,8 +9,7 @@
             <a class="link-fx fw-bold tracking-wide mx-auto" href="{{ config('app.url') }}">
                 <span class="smini-hidden">
                     <i class="fa fa-bowl-rice text-primary"></i>
-                    <span class="fs-4 text-dual">CMS</span><span class="fs-4 text-primary">{{ config('app.name')
-                        }}</span>
+                    <span class="fs-4 text-dual">BUMDES</span><span class="fs-4 text-primary">Sicil</span>
                 </span>
             </a>
         </div>

@@ -5,18 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <title>{{ config('app.name') }} - Bootstrap 5 Admin Template &amp; UI Framework</title>
+    <title>BUMDESSICIL - Badan Usaha Milik Desa Siak Kecil</title>
 
-    <meta name="description"
-        content="Codebase - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
-    <meta name="author" content="pixelcave">
+    <meta name="description" content="BUMDESSICIL - Badan Usaha Milik Desa Siak Kecil">
+    <meta name="author" content="bumdessicil">
     <meta name="robots" content="noindex, nofollow">
 
     <!-- Open Graph Meta -->
-    <meta property="og:title" content="Codebase - Bootstrap 5 Admin Template &amp; UI Framework">
-    <meta property="og:site_name" content="Codebase">
-    <meta property="og:description"
-        content="Codebase - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave and published on Themeforest">
+    <meta property="og:title" content="BUMDESSICIL - Badan Usaha Milik Desa Siak Kecil">
+    <meta property="og:site_name" content="BUMDESSICIL">
+    <meta property="og:description" content="BUMDESSICIL - Badan Usaha Milik Desa Siak Kecil">
     <meta property="og:type" content="website">
     <meta property="og:url" content="">
     <meta property="og:image" content="">
@@ -184,7 +182,7 @@
                         <li class="nav-main-item">
                             <a class="nav-main-link active" href="gs_landing.html">
                                 <i class="nav-main-link-icon fa fa-home"></i>
-                                <span class="nav-main-link-name">Home</span>
+                                <span class="nav-main-link-name">Beranda</span>
                             </a>
                         </li>
                         {{-- <li class="nav-main-heading">Heading</li>
@@ -255,7 +253,7 @@
                             <li class="nav-main-item">
                                 <a class="nav-main-link" href="{{ route('login') }}">
                                     <i class="nav-main-link-icon fa fa-sign-in"></i>
-                                    <span class="nav-main-link-name">Login</span>
+                                    <span class="nav-main-link-name">Masuk</span>
                                 </a>
                             </li>
                         @endauth
@@ -502,7 +500,8 @@
                             href="https://1.envato.market/ydb" target="_blank">pixelcave</a> --}}
                     </div>
                     <div class="col-sm-6 order-sm-1 py-1 text-center text-sm-start">
-                        <a class="fw-semibold" href="https://1.envato.market/95j" target="_blank">{{ env('APP_NAME') }}</a>
+                        <a class="fw-semibold" href="https://1.envato.market/95j"
+                            target="_blank">{{ env('APP_NAME') }}</a>
                         &copy; <span data-toggle="year-copy"></span>
                     </div>
                 </div>
