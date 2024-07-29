@@ -31,7 +31,7 @@ class ordersController extends Controller
 
     public function exportPdf()
     {
-        $pemesanan = Orders::all();
+        $pemesanan = Orders::where('toko_id', auth()->user()->id)->latest()->get();
         $total_pendapatan = $pemesanan->sum('total_harga');
 
         $pdf = FacadePdf::loadView('backend.toko.pemesanan.pdf', compact('pemesanan', 'total_pendapatan'));
