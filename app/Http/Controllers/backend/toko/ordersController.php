@@ -5,16 +5,12 @@ namespace App\Http\Controllers\backend\toko;
 use App\Http\Controllers\Controller;
 use App\Models\Orders;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\Request;
-use PDF;
-use Illuminate\Support\Facades\View;
 
-class ordersController extends Controller
+class OrdersController extends Controller
 {
     public function index()
     {
-        // Jika user adalah 'super admin'
         if (auth()->user()->hasRole('super admin')) {
             return view('backend.toko.pemesanan.index', [
                 'pemesanan' => Orders::latest()->get(),
@@ -37,16 +33,24 @@ class ordersController extends Controller
         ]);
     }
 
-    public function exportPdf()
+    public function exportPdf(Request $request, $bulan = null, $tahun = null)
     {
-        // if user login admin tampilkan semua pesanan
         if (auth()->user()->role == 'admin') {
-            $pemesanan = Orders::latest()->get();
+            $query = Orders::query();
         } else {
-            $pemesanan = Orders::where('toko_id', auth()->user()->id)
-                ->latest()
-                ->get();
+            $query = Orders::where('toko_id', auth()->user()->id);
         }
+
+        if ($tahun && $bulan) {
+            $startDate = "$tahun-$bulan-01";
+            $endDate = date('Y-m-t', strtotime($startDate));
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        } else {
+            // Jika tidak ada filter bulan dan tahun, ambil data terbaru
+            $query->latest()->limit(1);
+        }
+
+        $pemesanan = $query->get();
         $total_pendapatan = $pemesanan->sum('total_harga');
 
         $pdf = FacadePdf::loadView('backend.toko.pemesanan.pdf', compact('pemesanan', 'total_pendapatan'));
@@ -69,14 +73,10 @@ class ordersController extends Controller
 
     public function cancel($id)
     {
-        // Find the order by its ID
         $order = Orders::findOrFail($id);
-
-        // Perform the cancellation logic, e.g., updating the order status
-        $order->status = 'cancelled'; // Assuming you have a status field
+        $order->status = 'cancelled';
         $order->save();
 
-        // Optionally, you can add flash messages or other response handling here
         return redirect()->back()->with('success', 'Order has been cancelled.');
     }
 }

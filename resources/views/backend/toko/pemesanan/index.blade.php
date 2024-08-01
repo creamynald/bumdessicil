@@ -15,14 +15,49 @@
                 </h3>
 
                 <div class="block-options">
-                    <button type="button" class="btn btn-sm btn-danger"
-                        onclick="window.location='{{ route('orders.exportPdf') }}'">
+                    <select class="form-select" id="bulan" name="bulan" size="1">
+                        <option value="" selected="" disabled="">Pilih Bulan</option>
+                        @php
+                            $bulan = [
+                                'Januari',
+                                'Februari',
+                                'Maret',
+                                'April',
+                                'Mei',
+                                'Juni',
+                                'Juli',
+                                'Agustus',
+                                'September',
+                                'Oktober',
+                                'November',
+                                'Desember',
+                            ];
+                        @endphp
+                        @foreach ($bulan as $index => $row)
+                            <option value="{{ $index + 1 }}">{{ $row }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="block-options">
+                    <select class="form-select" id="tahun" name="tahun" size="1">
+                        <option value="" selected="" disabled="">Pilih Tahun</option>
+                        @php
+                            $tahunRange = range(2020, 2025); // Tahun dari 2020 hingga 2025
+                        @endphp
+                        @foreach ($tahunRange as $tahun)
+                            <option value="{{ $tahun }}">{{ $tahun }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="block-options">
+                    <button type="button" class="btn btn-danger" id="exportPdfButton">
                         <i class="fa fa-file"></i> Export PDF
                     </button>
                 </div>
             </div>
             <div class="block-content block-content-full">
-                <!-- DataTables functionality is initialized with .js-dataTable-full class in js/pages/be_tables_datatables.min.js which was auto compiled from _js/pages/be_tables_datatables.js -->
                 <!-- Hidden form for updating the status -->
                 <form id="cancel-form" action="" method="POST" style="display: none;">
                     @csrf
@@ -41,7 +76,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($pemesanan as $index => $row)
+                        @forelse ($pemesanan as $index => $row)
                             <tr data-id="{{ $row->id }}">
                                 <td class="text-center">{{ $index + 1 }}</td>
                                 <td class="fw-semibold">{{ $row->beras->jenisBeras->nama }}
@@ -64,14 +99,14 @@
                                     @elseif($row->status == 'processing')
                                         <span class="badge bg-info">
                                             <i class="fa fa-spinner" aria-hidden="true"></i>
-                                            Sedag Diproses
+                                            Sedang Diproses
                                         </span>
                                     @elseif($row->status == 'completed')
                                         <span class="badge bg-success">
                                             <i class="fa fa-check" aria-hidden="true"></i>
                                             Selesai / telah dikirim
                                         </span>
-                                    @else($row->status == 'cancelled')
+                                    @else
                                         <span class="badge bg-danger">
                                             <i class="fa fa-times" aria-hidden="true"></i>
                                             Pemesanan dibatalkan
@@ -98,11 +133,15 @@
                                     @endif
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center">Data tidak ditemukan</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="4" rowspan="row" class="text-center">Total Penjualan</th>
+                            <th colspan="4" class="text-center">Total Penjualan</th>
                             <th colspan="2">{{ formatRupiah($total_pendapatan) }}</th>
                         </tr>
                     </tfoot>
@@ -138,9 +177,8 @@
             }
         });
     </script>
-    <link rel="stylesheet"
-        href="{{ asset('assets/js/plugins/datatables-responsive-bs5/css/responsive.bootstrap5.min.css') }}">
     @include('sweetalert::alert')
+
     <script>
         function cancelOrder(url) {
             Swal.fire({
@@ -160,9 +198,28 @@
                 }
             });
         }
+
+        $(document).ready(function() {
+            $('#exportPdfButton').on('click', function() {
+                var bulan = $('#bulan').val();
+                var tahun = $('#tahun').val();
+                
+                if (bulan && !tahun) {
+                    // Alert if bulan is selected but not tahun
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Peringatan',
+                        text: 'Tahun harus dipilih jika bulan dipilih!',
+                    });
+                    return;
+                }
+                
+                var url = '{{ route('orders.exportPdf', ['bulan' => ':bulan', 'tahun' => ':tahun']) }}';
+                url = url.replace(':bulan', bulan || 'latest').replace(':tahun', tahun || '');
+                window.location.href = url;
+            });
+        });
     </script>
-
-
 
     <!-- Page JS Plugins -->
     <script src="{{ asset('assets/js/plugins/datatables/jquery.dataTables.min.js') }}"></script>
