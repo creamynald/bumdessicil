@@ -14,12 +14,20 @@ class ordersController extends Controller
 {
     public function index()
     {
-        return view('backend.toko.pemesanan.index', [
-            'pemesanan' => Orders::where('toko_id', auth()->user()->id)
-                ->latest()
-                ->get(),
-            'total_pendapatan' => Orders::where('toko_id', auth()->user()->id)->sum('total_harga'),
-        ]);
+        // Jika user adalah 'super admin'
+        if (auth()->user()->hasRole('super admin')) {
+            return view('backend.toko.pemesanan.index', [
+                'pemesanan' => Orders::latest()->get(),
+                'total_pendapatan' => Orders::sum('total_harga'),
+            ]);
+        } else {
+            return view('backend.toko.pemesanan.index', [
+                'pemesanan' => Orders::where('toko_id', auth()->user()->id)
+                    ->latest()
+                    ->get(),
+                'total_pendapatan' => Orders::where('toko_id', auth()->user()->id)->sum('total_harga'),
+            ]);
+        }
     }
 
     public function show($id)
@@ -31,7 +39,14 @@ class ordersController extends Controller
 
     public function exportPdf()
     {
-        $pemesanan = Orders::all();
+        // if user login admin tampilkan semua pesanan
+        if (auth()->user()->role == 'admin') {
+            $pemesanan = Orders::latest()->get();
+        } else {
+            $pemesanan = Orders::where('toko_id', auth()->user()->id)
+                ->latest()
+                ->get();
+        }
         $total_pendapatan = $pemesanan->sum('total_harga');
 
         $pdf = FacadePdf::loadView('backend.toko.pemesanan.pdf', compact('pemesanan', 'total_pendapatan'));

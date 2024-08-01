@@ -34,7 +34,7 @@
                         <tr>
                             <th class="text-center">No</th>
                             <th>Jenis Beras</th>
-                            <th>Customer</th>
+                            <th>Nama Pembeli</th>
                             <th class="d-none d-sm-table-cell">Status</th>
                             <th>Total Harga</th>
                             <th class="text-center" style="width: 15%;">Aksi</th>
@@ -47,8 +47,14 @@
                                 <td class="fw-semibold">{{ $row->beras->jenisBeras->nama }}
                                     <span class="badge bg-success">{{ $row->berat }} Kg</span>
                                 </td>
-                                <td class="fw-semibold"><i class="fa fa-tag" aria-hidden="true"></i>
-                                    {{ $row->user->name }}</td>
+                                <td class="fw-semibold">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    @if ($row->nama_pembeli == null)
+                                        {{ $row->user->name }}
+                                    @else
+                                        {{ $row->nama_pembeli }}
+                                    @endif
+                                </td>
                                 <td class="d-none d-sm-table-cell text-center">
                                     @if ($row->status == 'pending')
                                         <span class="badge bg-warning">

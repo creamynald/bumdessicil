@@ -23,6 +23,12 @@
                         <div class="block-content">
                             <div class="mb-4">
                                 <div class="form-floating">
+                                    <input type="text" class="form-control" id="nama_pembeli" name="nama_pembeli" placeholder="nama_pembeli Lengkap" required>
+                                    <label class="form-label" for="nama_pembeli">Nama</label>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="form-floating">
                                     <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat Lengkap" required>
                                     <label class="form-label" for="alamat">Alamat</label>
                                 </div>
@@ -32,6 +38,7 @@
                                     <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="Enter your phone number" required>
                                     <label class="form-label" for="no_hp">Nomor HP/Whatsapp</label>
                                 </div>
+                                <span class="text-success">*gunakan format 628XXXXXXXXXX</span>
                             </div>
                         </div>
                     </div>
