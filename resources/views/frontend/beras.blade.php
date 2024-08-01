@@ -1,8 +1,8 @@
 <div class="bg-body-light">
     <div class="content content-full">
         <div class="py-5 text-center">
-            <h3 class="fw-bold mb-2">Daftar Usaha di BUMDes Siak Kecil</h3>
-            <h4 class="fw-normal text-muted mb-0">Content..</h4>
+            <h3 class="fw-bold mb-4">Daftar Usaha di BUMDes Siak Kecil</h3>
+            {{-- <h4 class="fw-normal text-muted mb-0">Content..</h4> --}}
             {{-- row semua beras dari setiap bumdes --}}
             <div class="row">
                 @foreach ($daftarBeras as $row)
