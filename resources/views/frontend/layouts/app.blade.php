@@ -35,6 +35,15 @@
     <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
     <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/flat.min.css"> -->
     <link rel="stylesheet" id="css-theme" href="{{ asset('assets/css/themes/flat.min.css') }}">
+    <!-- Other meta and link tags -->
+    <style>
+        .hero-background {
+            background-image: url('{{ asset('assets/media/photos/background-bumdes.jpg') }}');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+
     <!-- END Stylesheets -->
 </head>
 
@@ -56,7 +65,7 @@
                         <a class="link-fx fw-bold tracking-wide mx-auto" href="index.html">
                             <span class="smini-hidden">
                                 <i class="fa fa-fire text-primary"></i>
-                                <span class="fs-4 text-dual">code</span><span class="fs-4 text-primary">base</span>
+                                <span class="fs-4 text-dual">BUMDES</span><span class="fs-4 text-primary">Sicil</span>
                             </span>
                         </a>
                     </div>
@@ -168,7 +177,7 @@
                     <!-- Logo -->
                     <a class="link-fx fw-bold" href="index.html">
                         <i class="fa fa-fire text-primary"></i>
-                        <span class="fs-4 text-dual">code</span><span class="fs-4 text-primary">base</span>
+                        <span class="fs-4 text-dual">BUMDES</span><span class="fs-4 text-primary">Sicil</span>
                     </a>
                     <!-- END Logo -->
                 </div>
@@ -182,151 +191,26 @@
                         <li class="nav-main-item">
                             <a class="nav-main-link active" href="gs_landing.html">
                                 <i class="nav-main-link-icon fa fa-home"></i>
-                                <span class="nav-main-link-name">Beranda</span>
+                                <span class="nav-main-link-name text-white">Beranda</span>
                             </a>
                         </li>
-                        {{-- <li class="nav-main-heading">Heading</li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true"
-                                aria-expanded="false" href="#">
-                                <i class="nav-main-link-icon fa fa-puzzle-piece"></i>
-                                <span class="nav-main-link-name">Dropdown</span>
-                            </a>
-                            <ul class="nav-main-submenu">
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link" href="javascript:void(0)">
-                                        <span class="nav-main-link-name">Link #1</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link" href="javascript:void(0)">
-                                        <span class="nav-main-link-name">Link #2</span>
-                                    </a>
-                                </li>
-                                <li class="nav-main-item">
-                                    <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu"
-                                        aria-haspopup="true" aria-expanded="false" href="#">
-                                        <span class="nav-main-link-name">Dropdown</span>
-                                    </a>
-                                    <ul class="nav-main-submenu">
-                                        <li class="nav-main-item">
-                                            <a class="nav-main-link" href="javascript:void(0)">
-                                                <span class="nav-main-link-name">Link #1</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-main-item">
-                                            <a class="nav-main-link" href="javascript:void(0)">
-                                                <span class="nav-main-link-name">Link #2</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-main-heading">Vital</li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
-                                <i class="nav-main-link-icon fa fa-wrench"></i>
-                                <span class="nav-main-link-name">Page</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
-                                <i class="nav-main-link-icon fa fa-wrench"></i>
-                                <span class="nav-main-link-name">Page</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" href="javascript:void(0)">
-                                <i class="nav-main-link-icon fa fa-wrench"></i>
-                                <span class="nav-main-link-name">Page</span>
-                            </a>
-                        </li> --}}
                         @auth
                             <li class="nav-main-item">
                                 <a class="nav-main-link" href="{{ route('dashboard') }}">
                                     <i class="nav-main-link-icon fa fa-user"></i>
-                                    <span class="nav-main-link-name">Dashboard</span>
+                                    <span class="nav-main-link-name text-white">Dashboard</span>
                                 </a>
                             </li>
                         @else
                             <li class="nav-main-item">
                                 <a class="nav-main-link" href="{{ route('login') }}">
                                     <i class="nav-main-link-icon fa fa-sign-in"></i>
-                                    <span class="nav-main-link-name">Masuk</span>
+                                    <span class="nav-main-link-name text-white">Masuk</span>
                                 </a>
                             </li>
                         @endauth
                     </ul>
                     <!-- END Header Navigation -->
-
-                    <!-- Color Themes (used just for demonstration) -->
-                    <!-- Themes functionality initialized in Codebase() -> uiHandleTheme() -->
-                    {{-- <div class="dropdown d-inline-block">
-                        <button type="button" class="btn btn-sm btn-alt-secondary" id="page-header-themes-dropdown"
-                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true"
-                            aria-expanded="false">
-                            <i class="fa fa-paint-brush"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="page-header-themes-dropdown">
-                            <h6 class="dropdown-header text-center">Color Themes</h6>
-                            <div class="row g-0 text-center">
-                                <div class="col-4 mb-1">
-                                    <a class="text-default" data-toggle="theme" data-theme="default"
-                                        href="javascript:void(0)">
-                                        <i class="fa fa-2x fa-circle"></i>
-                                    </a>
-                                </div>
-                                <div class="col-4 mb-1">
-                                    <a class="text-elegance" data-toggle="theme"
-                                        data-theme="assets/css/themes/elegance.min.css" href="javascript:void(0)">
-                                        <i class="fa fa-2x fa-circle"></i>
-                                    </a>
-                                </div>
-                                <div class="col-4 mb-1">
-                                    <a class="text-pulse" data-toggle="theme"
-                                        data-theme="assets/css/themes/pulse.min.css" href="javascript:void(0)">
-                                        <i class="fa fa-2x fa-circle"></i>
-                                    </a>
-                                </div>
-                                <div class="col-4 mb-1">
-                                    <a class="text-flat" data-toggle="theme"
-                                        data-theme="assets/css/themes/flat.min.css" href="javascript:void(0)">
-                                        <i class="fa fa-2x fa-circle"></i>
-                                    </a>
-                                </div>
-                                <div class="col-4 mb-1">
-                                    <a class="text-corporate" data-toggle="theme"
-                                        data-theme="assets/css/themes/corporate.min.css" href="javascript:void(0)">
-                                        <i class="fa fa-2x fa-circle"></i>
-                                    </a>
-                                </div>
-                                <div class="col-4 mb-1">
-                                    <a class="text-earth" data-toggle="theme"
-                                        data-theme="assets/css/themes/earth.min.css" href="javascript:void(0)">
-                                        <i class="fa fa-2x fa-circle"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
-                    <!-- END Color Themes -->
-
-                    <!-- Open Search Section -->
-                    <!-- Layout API, functionality initialized in Codebase() -> uiApiLayout() -->
-                    {{-- <button type="button" class="btn btn-sm btn-alt-secondary" data-toggle="layout"
-                        data-action="header_search_on">
-                        <i class="fa fa-fw fa-search"></i>
-                    </button> --}}
-                    <!-- END Open Search Section -->
-
-                    <!-- Toggle Sidebar -->
-                    <!-- Layout API, functionality initialized in Codebase() -> uiApiLayout() -->
-                    {{-- <button type="button" class="btn btn-sm btn-alt-secondary d-lg-none" data-toggle="layout"
-                        data-action="sidebar_toggle">
-                        <i class="fa fa-fw fa-bars"></i>
-                    </button> --}}
-                    <!-- END Toggle Sidebar -->
                 </div>
                 <!-- END Right Section -->
             </div>
@@ -371,27 +255,23 @@
         <main id="main-container">
 
             <!-- Hero -->
-            <div class="bg-body-extra-light overflow-hidden">
+            <div class="bg-body-extra-light overflow-hidden"
+                style="background-image: url('{{ asset('assets/media/photos/background-bumdes.jpg') }}'); background-size: cover; background-position: center;">
                 <div class="hero">
                     <div class="hero-inner">
                         <div class="content content-full text-center">
-                            <h1 class="display-3 fw-bold mb-2">
+                            <h1 class="display-3 fw-bold mb-2 text-white">
                                 Badan Usaha Milik Desa (BUMD)
                             </h1>
-                            <h2 class="fw-medium text-muted mb-5">
+                            <h2 class="fw-medium mb-5 text-primary">
                                 Siak Kecil
                             </h2>
-                            {{-- <a class="btn btn-lg btn-primary fw-semibold me-1 mb-2" href="javascript:void(0)">
-                                <i class="fa fa-rocket opacity-50 me-1"></i> Call to Action
-                            </a>
-                            <a class="btn btn-lg btn-alt-primary fw-semibold mb-2" href="javascript:void(0)">
-                                <i class="fa fa-rocket opacity-50 me-1"></i> Call to Action
-                            </a> --}}
                         </div>
                     </div>
                 </div>
             </div>
             <!-- END Hero -->
+
 
             <!-- Content #1 -->
             @include('frontend.beras')
