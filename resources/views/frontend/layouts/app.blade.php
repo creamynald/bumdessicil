@@ -37,10 +37,10 @@
     <link rel="stylesheet" id="css-theme" href="{{ asset('assets/css/themes/flat.min.css') }}">
     <!-- Other meta and link tags -->
     <style>
-        .hero-background {
-            background-image: url('{{ asset('assets/media/photos/background-bumdes.jpg') }}');
-            background-size: cover;
-            background-position: center;
+        .text-ellipsis {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
     </style>
 

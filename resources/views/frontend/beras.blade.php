@@ -35,11 +35,13 @@
                                 <div class="row mb-3">
                                     <div class="col-6 d-flex align-items-center">
                                         <i class="fa fa-fw fa-archive opacity-50 me-2 text-secondary"></i>
-                                        <p class="mb-0"><strong>{{ $row->berat }}</strong> Kg</p>
+                                        <p class="mb-0 text-ellipsis" title="{{ $row->berat }}">{{ $row->berat }} Kg
+                                        </p>
                                     </div>
                                     <div class="col-6 d-flex align-items-center">
                                         <i class="fa fa-fw fa-tag opacity-50 me-2 text-secondary"></i>
-                                        <p class="mb-0">{{ $row->jenisBeras->nama }}</p>
+                                        <p class="mb-0 text-ellipsis" title="{{ $row->jenisBeras->nama }}">
+                                            {{ $row->jenisBeras->nama }}</p>
                                     </div>
                                 </div>
                             </div>
