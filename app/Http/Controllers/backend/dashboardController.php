@@ -11,8 +11,12 @@ class dashboardController extends Controller
 {
     public function index()
     {
+
+        $user_id = auth()->user()->id;
+
         // Query data dari database
         $rekap_penjualan_perbulan = Orders::selectRaw('MONTH(created_at) as bulan, SUM(total_harga) as total')
+            ->where('user_id', $user_id)
             ->groupBy('bulan')
             ->orderBy('bulan') // Pastikan data diambil dalam urutan yang benar
             ->get();
