@@ -75,6 +75,8 @@
     </div>
     <!-- END Page Container -->
 
+    @stack('js')
+
     <!--
         Codebase JS
 
