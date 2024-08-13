@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [homeController::class, 'index']);
 
-Route::middleware(['auth', 'check.active'])
+Route::middleware('auth')
     ->prefix('admin')
     ->group(function () {
-        Route::get('dashboard',[dashboardController::class, 'index'])->name('dashboard');
+        Route::get('dashboard', [dashboardController::class, 'index'])->name('dashboard');
         Route::prefix('role-and-permission')
             ->middleware('permission:permission')
             ->group(function () {
@@ -33,9 +33,11 @@ Route::middleware(['auth', 'check.active'])
         });
         Route::resource('list-bumdes', RekapController::class);
         Route::resource('list-customer', RekapController::class);
+        Route::patch('list-bumdes/{id}/activate', [RekapController::class, 'activate'])->name('list-bumdes.activate');
+        Route::patch('list-customer/{id}/activate', [RekapController::class, 'activate'])->name('list-customer.activate');
     });
 
-Route::middleware(['auth', 'check.active'])
+Route::middleware('auth')
     ->prefix('customer')
     ->group(function () {
         Route::prefix('order')->group(function () {
