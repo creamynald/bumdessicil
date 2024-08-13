@@ -22,6 +22,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'no_rekening',
+        'nama_bank',
+        'dokumen',
+        'is_active',
     ];
 
     /**
