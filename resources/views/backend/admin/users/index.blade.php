@@ -27,6 +27,7 @@
                             <th>Nama</th>
                             <th class="d-none d-sm-table-cell">Email</th>
                             <th>Akun dibuat</th>
+                            <th>Status Akun</th>
                             <th class="text-center" style="width: 15%;">Aksi</th>
                         </tr>
                     </thead>
@@ -42,6 +43,13 @@
                                 </td>
                                 <td class="text-center">
                                     <span class="badge bg-primary">{{ $row->created_at->diffForHumans() }}</span>
+                                </td>
+                                <td class="text-center">
+                                    @if ($row->is_active == '1')
+                                        <span class="badge bg-success">Aktif</span>
+                                    @else
+                                        <span class="badge bg-danger">Tidak Aktif</span>
+                                    @endif
                                 </td>
                                 <td class="text-center">
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#edit-modal"

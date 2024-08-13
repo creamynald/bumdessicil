@@ -37,6 +37,9 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
+        // Set is_active based on the role
+        $isActive = $data['role'] === 'customer';
+
         // Create the user with the provided data
         $user = User::create([
             'name' => $data['name'],
@@ -45,7 +48,7 @@ class RegisterController extends Controller
             'role' => $data['role'],
             'no_rekening' => $data['no_rekening'] ?? null,
             'nama_bank' => $data['nama_bank'] ?? null,
-            'is_active' => false, // Set default value for is_active
+            'is_active' => $isActive, // Set is_active based on role
         ]);
 
         // Handle file upload if present
