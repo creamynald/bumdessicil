@@ -16,7 +16,8 @@ class dashboardController extends Controller
 
         // Query data dari database
         $rekap_penjualan_perbulan = Orders::selectRaw('MONTH(created_at) as bulan, SUM(total_harga) as total')
-            ->where('user_id', $user_id)
+            ->where('toko_id', $user_id)
+            ->where('status', 'completed')
             ->groupBy('bulan')
             ->orderBy('bulan') // Pastikan data diambil dalam urutan yang benar
             ->get();
