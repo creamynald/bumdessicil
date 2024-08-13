@@ -52,15 +52,23 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
+                                    <!-- Existing Edit and Delete buttons -->
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#edit-modal"
                                         data-id="{{ $row->id }}" data-name="{{ $row->name }}"
-                                        data-urutan="{{ $row->urutan }}" class="btn btn-sm btn-secondary edit-btn"
+                                        data-email="{{ $row->email }}" class="btn btn-sm btn-secondary edit-btn"
                                         title="Edit">
                                         <i class="fa fa-pen"></i>
                                     </a>
                                     <button type="button" class="btn btn-sm btn-danger delete-btn" title="Delete">
                                         <i class="fa fa-trash-can"></i>
                                     </button>
+                                    <!-- Activate button -->
+                                    @if (!$row->is_active)
+                                        <button type="button" class="btn btn-sm btn-success activate-btn"
+                                            data-id="{{ $row->id }}" title="Activate">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -102,6 +110,57 @@
     @include('sweetalert::alert')
     <script>
         $(document).ready(function() {
+            // Handle activate button click event
+            $('.activate-btn').on('click', function() {
+                var id = $(this).data('id');
+                var activateUrl = '{{ url('admin') }}/' + '{{ $url }}' + '/' + id + '/activate';
+
+                Swal.fire({
+                    title: 'Apakah Anda Yakin?',
+                    text: 'Anda ingin mengaktifkan pengguna ini!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Aktifkan!',
+                    cancelButtonText: 'Tidak, Batal!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: activateUrl,
+                            type: 'PATCH',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+                                if (response.success) {
+                                    Swal.fire(
+                                        'Aktif!',
+                                        response.success,
+                                        'success'
+                                    ).then(function() {
+                                        location.reload();
+                                    });
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        'Gagal mengaktifkan pengguna.',
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function(response) {
+                                Swal.fire(
+                                    'Error!',
+                                    response.responseJSON.error ||
+                                    'Gagal mengaktifkan pengguna.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            });
+
             // Handle delete button click event
             $('.delete-btn').on('click', function() {
                 var id = $(this).closest('tr').data('id');

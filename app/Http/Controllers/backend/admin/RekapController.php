@@ -69,4 +69,17 @@ class RekapController extends Controller
             return response()->json(['error' => 'Data gagal dihapus'], 500);
         }
     }
+
+    public function activate($id)
+    {
+        try {
+            $user = User::findOrFail($id); // Use findOrFail to throw an exception if the user is not found
+            $user->is_active = true; // Set is_active to true
+            $user->save(); // Save the changes
+
+            return response()->json(['success' => 'Pengguna berhasil diaktifkan']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal mengaktifkan pengguna'], 500);
+        }
+    }
 }
