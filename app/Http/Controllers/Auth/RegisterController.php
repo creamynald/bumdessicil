@@ -61,10 +61,10 @@ class RegisterController extends Controller
 
             // Membuat nama file sesuai format [username]-[jenis beras]-[tanggal input].[ext]
             $filename = $username . '-' . $jenisBeras . '-' . $date . '.' . $buktiPembayaran->getClientOriginalExtension();
-            $buktiPembayaranPath = 'bukti_pembayaran/' . $filename;
+            $buktiPembayaranPath = 'dok_pendukung/' . $filename;
 
             // Menyimpan file ke direktori publik
-            $buktiPembayaran->move(public_path('bukti_pembayaran'), $filename);
+            $buktiPembayaran->move(public_path('dok_pendukung'), $filename);
 
             // Update path file di user
             $user->dokumen = $buktiPembayaranPath;

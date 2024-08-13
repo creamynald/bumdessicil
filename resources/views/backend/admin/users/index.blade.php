@@ -27,7 +27,7 @@
                             <th>Nama</th>
                             <th class="d-none d-sm-table-cell">Email</th>
                             <th>Akun dibuat</th>
-                            <th>Status Akun</th>
+                            <th>Status & Dok. Pendukung</th>
                             <th class="text-center" style="width: 15%;">Aksi</th>
                         </tr>
                     </thead>
@@ -48,8 +48,16 @@
                                     @if ($row->is_active == '1')
                                         <span class="badge bg-success">Aktif</span>
                                     @else
-                                        <span class="badge bg-danger">Tidak Aktif</span>
+                                        <span class="badge bg-danger">Akun Tidak Aktif</span>
                                     @endif
+                                    @if ($row->dokumen)
+                                        {{-- <p>Path Dokumen: {{ asset($row->dokumen) }}</p> --}}
+                                        <a href="{{ asset($row->dokumen) }}" target="_blank" class="btn btn-sm btn-info"
+                                            title="Lihat Dokumen">
+                                            <i class="fa fa-file"></i>
+                                        </a>
+                                    @endif
+
                                 </td>
                                 <td class="text-center">
                                     <!-- Existing Edit and Delete buttons -->
