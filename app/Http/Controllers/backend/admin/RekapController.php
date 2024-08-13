@@ -15,13 +15,13 @@ class RekapController extends Controller
         if (request()->segment(2) == 'list-bumdes') {
             // Move the if statement outside of the array
             return view('backend.admin.users.index', [
-                'users' => User::role('bumdes')->get(),
+                'users' => User::role('bumdes')->orderBy('is_active', 'asc')->get(),
                 'route' => route('list-bumdes.index'),
                 'url' => 'list-bumdes',
             ]);
         } else {
             return view('backend.admin.users.index', [
-                'users' => User::role('customer')->get(),
+                'users' => User::role('customer')->orderBy('is_active', 'asc')->get(),
                 'route' => route('list-customer.index'),
                 'url' => 'list-customer',
             ]);
