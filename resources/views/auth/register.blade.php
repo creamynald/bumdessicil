@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <form class="js-validation-signup" action="{{ route('register') }}" method="POST">
+    <form class="js-validation-signup" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="block block-themed block-rounded block-fx-shadow">
             <div class="block-header bg-gd-emerald">
@@ -40,6 +40,7 @@
                 </div>
                 <div class="form-floating mb-4" id="nama_bank_field" style="display: none;">
                     <select class="form-select form-select-lg" id="nama_bank" name="nama_bank">
+                        <option>Pilih Rekening</option>
                         <option value="brk">BRK</option>
                         <option value="bri">BRI</option>
                         <option value="bni">BNI</option>
