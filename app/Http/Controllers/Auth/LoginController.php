@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -36,5 +39,19 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->is_active == 0) {
+            Auth::logout(); // Logout the user if the account is not active
+            return redirect()
+                ->back()
+                ->withErrors([
+                    'email' => 'Akun belum dikonfirmasi.',
+                ]);
+        }
+
+        return redirect()->intended($this->redirectPath());
     }
 }

@@ -8,6 +8,17 @@
             <h3 class="block-title">Masuk</h3>
         </div>
         <div class="block-content">
+            @if ($errors->any())
+                <div class="alert alert-danger d-flex align-items-center justify-content-between" role="alert">
+                    <p class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            {{ $error }}
+                        @endforeach
+                    </p>
+                    <i class="fa fa-fw fa-times ms-2"></i>
+                </div>
+            @endif
+
             <div class="form-floating mb-4">
                 <input type="text" class="form-control" id="email" name="email" placeholder="Enter your username">
                 <label class="form-label" for="email">Surel</label>
