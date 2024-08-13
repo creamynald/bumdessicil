@@ -27,7 +27,7 @@
                             <th>Nama</th>
                             <th class="d-none d-sm-table-cell">Email</th>
                             <th>Akun dibuat</th>
-                            <th>Status & Dok. Pendukung</th>
+                            <th>Status</th>
                             <th class="text-center" style="width: 15%;">Aksi</th>
                         </tr>
                     </thead>
@@ -50,6 +50,9 @@
                                     @else
                                         <span class="badge bg-danger">Akun Tidak Aktif</span>
                                     @endif
+
+                                </td>
+                                <td class="text-center">
                                     @if ($row->dokumen)
                                         {{-- <p>Path Dokumen: {{ asset($row->dokumen) }}</p> --}}
                                         <a href="{{ asset($row->dokumen) }}" target="_blank" class="btn btn-sm btn-info"
@@ -57,9 +60,6 @@
                                             <i class="fa fa-file"></i>
                                         </a>
                                     @endif
-
-                                </td>
-                                <td class="text-center">
                                     <!-- Existing Edit and Delete buttons -->
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#edit-modal"
                                         data-id="{{ $row->id }}" data-name="{{ $row->name }}"
