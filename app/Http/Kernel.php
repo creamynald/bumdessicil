@@ -58,6 +58,7 @@ class Kernel extends HttpKernel
         // custom
         'has.role' => HasRoleMiddleware::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
+        'check.active' => \App\Http\Middleware\CheckActiveStatus::class,
 
         // spatie
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,

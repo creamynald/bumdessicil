@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [homeController::class, 'index']);
 
-Route::middleware('auth')
+Route::middleware(['auth', 'check.active'])
     ->prefix('admin')
     ->group(function () {
         Route::get('dashboard',[dashboardController::class, 'index'])->name('dashboard');
@@ -35,7 +35,7 @@ Route::middleware('auth')
         Route::resource('list-customer', RekapController::class);
     });
 
-Route::middleware('auth')
+Route::middleware(['auth', 'check.active'])
     ->prefix('customer')
     ->group(function () {
         Route::prefix('order')->group(function () {
